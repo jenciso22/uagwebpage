@@ -50,6 +50,7 @@ const baseUrl="http://localhost:3001/solicitudes";
 function TablemisolicitudA () {
     // const styles = useStyles();
     // const [selectedRow, setSelectedRow] = useState(null);
+    const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     // const [modalInsertar, setModalInsertar] = useState(false);
     // const [modalEditar, setModalEditar]= useState(false);
@@ -77,8 +78,10 @@ function TablemisolicitudA () {
     const peticionGet = async()=>{
         await axios.get(baseUrl)
         .then(response=>{
+            setLoading(false);
             setData(response.data);
         }).catch(error=>{
+            setLoading(false);
             console.log(error);
           })
     }
@@ -259,33 +262,19 @@ function TablemisolicitudA () {
 
 
     return (
+
+        <>
+        {loading?<h1>Loading</h1>: 
+        <div>
         <div className='tableSolicitudes'>
-            <br />
-            {/* <div className='container-insertar'>
-            <button className='btn-insertar' onClick={()=>abrirCerrarModalInsertar()}>Insertar Proyecto</button>
-            </div> */}
-            <br /><br />
-            
+        <br />
+        <br />
+        
             <MaterialTable
                 columns={columns}
                 data={data}
                 title= 'Mis Solicitudes'
 
-                // actions={[
-                //     {
-                //         icon: CheckCircleIcon,
-                //         tooltip: 'Aceptar',
-                //         onClick: (event, rowData)=> seleccionarProyecto(rowData,"Aceptar")
-                //     },
-                //     {
-                //         icon: HighlightOffIcon,
-                //         tooltip: 'Denegar',
-                //         onClick: (event, rowData)=> seleccionarProyecto(rowData, "Eliminar")
-
-                //     }
-
-
-                // ]}
                 options={{
                     actionsColumnIndex: -1,
                     rowStyle:{
@@ -311,31 +300,10 @@ function TablemisolicitudA () {
                     }
                 }}
             />
-            {/* <Modal
-            open={modalInsertar}
-            onClose={abrirCerrarModalInsertar}>
-            {bodyInsertar}
-            </Modal>
 
-
-                <Modal
-            open={modalEditar}
-            onClose={abrirCerrarModalEditar}>
-            {bodyEditar}
-            </Modal> */}
-{/* 
-                <Modal
-            open={modalEliminar}
-            onClose={abrirCerrarModalEliminar}>
-            {bodyEliminar}
-            </Modal>
-
-            <Modal
-            open={modalAceptar}
-            onClose={abrirCerrarModalAceptar}>
-            {bodyAceptar}
-            </Modal> */}
         </div>
+        </div>}
+        </>
     )
 }
 

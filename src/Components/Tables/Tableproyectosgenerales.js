@@ -17,21 +17,22 @@ const columns=[
 ];
 
 
-
 const baseUrl="http://localhost:3001/proyectos";
-// const baseUrl="http://jsonplaceholder.typicode.com/users";
 
 
 function Tableproyectosgenerales() {
 
     const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
   
     const peticionGet = async()=>{
         await axios.get(baseUrl)
         .then(response=>{
+            setLoading(false);
             setData(response.data);
         }).catch(error=>{
             console.log(error);
+            setLoading(false);
           })
     }
 
@@ -41,16 +42,18 @@ function Tableproyectosgenerales() {
         }, []);
 
 
-
-
     return (
-        <div className='tableProyectosGenerales'>
+        <>
+        {loading?<h1>Loading</h1>: 
+        <div>
+            <div className='tableProyectosGenerales'>
+            <br />
+            <br />
             
             <MaterialTable
                 columns={columns}
                 data={data}
                 title= 'Proyectos Generales'
-
 
                 options={{
                     actionsColumnIndex: -1,
@@ -66,14 +69,12 @@ function Tableproyectosgenerales() {
                     },
                     Button: {
                         backgroundColor: '#000'
-                    }
-                    
-                    
+                    }  
                 }}
-    
-
             />
-        </div>
+            </div>
+        </div>}
+        </>
     )
 }
 

@@ -49,10 +49,8 @@ const useStyles = makeStyles((theme)=>({
 
 function Tablesolicitudes() {
     const styles = useStyles();
-    // const [selectedRow, setSelectedRow] = useState(null);
+    const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
-    // const [modalInsertar, setModalInsertar] = useState(false);
-    // const [modalEditar, setModalEditar]= useState(false);
     const [modalEliminar, setModalEliminar]= useState(false);
     const [modalAceptar, setModalAceptar]= useState(false);
     const [proyectoSeleccionado, setProyectoSeleccionado]= useState({
@@ -66,32 +64,17 @@ function Tablesolicitudes() {
         estatusDenegado:""
     })
     
-    // const handleChange=e=>{
-    //     const{name, value}=e.target;
-    //     setProyectoSeleccionado(prevState=>({
-    //         ...prevState,
-    //         [name]: value
-    //     }));
-    //     console.log(proyectoSeleccionado);
-    // };
+
     const peticionGet = async()=>{
         await axios.get(baseUrl)
         .then(response=>{
+            setLoading(false);
             setData(response.data);
         }).catch(error=>{
+            setLoading(false);
             console.log(error);
           })
     }
-
-    // const peticionPost=async()=>{
-    //     await axios.post(baseUrl, proyectoSeleccionado)
-    //     .then(response=>{
-    //       setData(data.concat(response.data));
-    //       abrirCerrarModalAceptar();
-    //     }).catch(error=>{
-    //       console.log(error);
-    //     })
-    //   }
 
       const peticionPut=(accept)=>{
          axios.put(baseUrl+"/"+proyectoSeleccionado.id, proyectoSeleccionado)
@@ -117,49 +100,6 @@ function Tablesolicitudes() {
         })
       }
 
-    //   const peticionPuts=async()=>{
-    //     await axios.put(baseUrl+"/"+proyectoSeleccionado.id, proyectoSeleccionado)
-    //     .then(response=>{
-    //       var dataNueva= data;
-    //       // eslint-disable-next-line array-callback-return
-    //       dataNueva.map(alumno=>{
-    //         if(alumno.estatusOne===proyectoSeleccionado.estatusOne){
-    //           alumno.estatusOne=proyectoSeleccionado.estatusDenegado;
-    //         //   name.username=proyectoSeleccionado.username;
-    //         //   name.email=proyectoSeleccionado.email;
-    //         //   name.phone=proyectoSeleccionado.phone;
-    //         //   name.website=proyectoSeleccionado.website;
-    //         }
-    //       });
-    //       setData(dataNueva);
-    //       abrirCerrarModalEliminar();
-
-    //     }).catch(error=>{
-    //       console.log(error);
-    //     })
-    //   }
-
-    //   if(alumno.id===proyectoSeleccionado.id){
-    //     alumno.estatusOne=proyectoSeleccionado.estatus;
-    //   //   name.username=proyectoSeleccionado.username;
-    //   //   name.email=proyectoSeleccionado.email;
-    //   //   name.phone=proyectoSeleccionado.phone;
-    //   //   name.website=proyectoSeleccionado.website;
-    //   }
-    // });
-
-
-    //   const peticionDelete=async()=>{
-    //     await axios.delete(baseUrl+"/"+proyectoSeleccionado.id)
-    //     .then(response=>{
-    //       setData(data.filter(artista=>artista.id!==proyectoSeleccionado.id));
-    //       abrirCerrarModalEliminar();
-    //     }).catch(error=>{
-    //       console.log(error);
-    //     })
-    //   }
-      
-
       const seleccionarProyecto =(proyecto, caso)=>{
         setProyectoSeleccionado(proyecto);
         (caso==="Aceptar")?abrirCerrarModalAceptar()
@@ -167,14 +107,6 @@ function Tablesolicitudes() {
         abrirCerrarModalEliminar()
       }
     
-
-        // const abrirCerrarModalInsertar=()=>{
-        //     setModalInsertar(!modalInsertar);
-        // }
-        // const abrirCerrarModalEditar=()=>{
-        //     setModalEditar(!modalEditar);
-        // }
-
         const abrirCerrarModalEliminar=()=>{
             setModalEliminar(!modalEliminar);
           }
@@ -186,50 +118,6 @@ function Tablesolicitudes() {
             peticionGet();
         }, []);
 
-
-    
-    // const bodyInsertar=(
-
-    //     <div className={styles.modal}>
-    //         <h3>Agregar Nuevo Proyecto</h3>
-    //         <TextField className={styles.inputMaterial} label='Nombre Proyecto' name='name' onChange={handleChange}/>
-    //         <br />
-    //         <TextField className={styles.inputMaterial} label='Asesor' name='username' onChange={handleChange}/>
-    //         <br />
-    //         <TextField className={styles.inputMaterial} label='Contacto' name='email' onChange={handleChange}/>
-    //         <br />
-    //         <TextField className={styles.inputMaterial} label='Fecha Entrega' name='phone' onChange={handleChange}/>
-    //         <br />
-    //         <TextField className={styles.inputMaterial} label='Descripcion' name='Website' onChange={handleChange}/>
-    //         <br /><br />
-    //         <div align='right'>
-    //             <Button color='primary' onClick={()=>peticionPost()}>Insertar</Button>
-    //             <Button onClick={()=>abrirCerrarModalInsertar()}> Cancelar </Button>
-    //         </div>
-    //     </div>
-    // )
-
-
-    
-    // const bodyEditar=(
-    //     <div className={styles.modal}>
-    //       <h3>Editar Artista</h3>
-    //       <TextField className={styles.inputMaterial} label="Nombre Proyecto" name="name" onChange={handleChange} value={proyectoSeleccionado&&proyectoSeleccionado.name}/>
-    //       <br />
-    //       <TextField className={styles.inputMaterial} label="Asesor" name="username" onChange={handleChange} value={proyectoSeleccionado&&proyectoSeleccionado.username}/>          
-    // <br />
-    // <TextField className={styles.inputMaterial} label="Contacto" name="email" onChange={handleChange} value={proyectoSeleccionado&&proyectoSeleccionado.email}/>
-    //       <br />
-    // <TextField className={styles.inputMaterial} label="Fecha Entrega" name="phone" onChange={handleChange} value={proyectoSeleccionado&&proyectoSeleccionado.phone}/>
-    // <br />
-    // <TextField className={styles.inputMaterial} label="Descripcion" name="website" onChange={handleChange} value={proyectoSeleccionado&&proyectoSeleccionado.website}/>
-    //       <br /><br />
-    //       <div align="right">
-    //         <Button color="primary" onClick={()=>peticionPut()}>Editar</Button>
-    //         <Button onClick={()=>abrirCerrarModalEditar()}>Cancelar</Button>
-    //       </div>
-    //     </div>
-    //   )
 
 
       const bodyEliminar=(
@@ -259,12 +147,13 @@ function Tablesolicitudes() {
 
 
     return (
-        <div className='tableSolicitudes'>
+
+      <>
+      {loading?<h1>Loading</h1>: 
+      <div>
+                <div className='tableSolicitudes'>
             <br />
-            {/* <div className='container-insertar'>
-            <button className='btn-insertar' onClick={()=>abrirCerrarModalInsertar()}>Insertar Proyecto</button>
-            </div> */}
-            <br /><br />
+            <br />
             
             <MaterialTable
                 columns={columns}
@@ -311,18 +200,6 @@ function Tablesolicitudes() {
                     }
                 }}
             />
-            {/* <Modal
-            open={modalInsertar}
-            onClose={abrirCerrarModalInsertar}>
-            {bodyInsertar}
-            </Modal>
-
-
-                <Modal
-            open={modalEditar}
-            onClose={abrirCerrarModalEditar}>
-            {bodyEditar}
-            </Modal> */}
 
                 <Modal
             open={modalEliminar}
@@ -336,6 +213,9 @@ function Tablesolicitudes() {
             {bodyAceptar}
             </Modal>
         </div>
+      </div>}
+      </>
+
     )
 }
 

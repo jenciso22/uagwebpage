@@ -68,6 +68,7 @@ const useStyles = makeStyles((theme)=>({
 function TableproyectosgeneralesA () {
     const styles = useStyles();
     const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [modalEliminar, setModalEliminar]= useState(false);
     const [modalSolicitar, setModalSolicitar]= useState(false);
     const [proyectoSeleccionado, setProyectoSeleccionado]= useState({
@@ -92,8 +93,10 @@ function TableproyectosgeneralesA () {
     const peticionGet = async()=>{
         await axios.get(baseUrl)
         .then(response=>{
+            setLoading(false);
             setData(response.data);
         }).catch(error=>{
+            setLoading(false);
             console.log(error);
           })
     }
@@ -144,8 +147,13 @@ function TableproyectosgeneralesA () {
 
 
     return (
-        <div className='tableProyectosGenerales'>
-            
+      <>
+      {loading?<h1>Loading</h1>: 
+      <div>
+            <div className='tableProyectosGenerales'>
+            <br />
+            <br />
+        
             <MaterialTable
                 columns={columns}
                 data={data}
@@ -195,6 +203,9 @@ function TableproyectosgeneralesA () {
             </Modal>
 
         </div>
+      </div>}
+      </>
+
     )
 }
 
