@@ -1,0 +1,22 @@
+.footer{
+    position: fixed;
+    background-color: #8B1200;
+    align-items: center;
+    /* margin-top:350px;
+    width:100%;
+    height:82px;
+    position: relative; */
+    padding-top: 15px;
+    padding-bottom: 20px;
+    /* margin-right: auto;
+    margin-left: auto; */
+    display: block;
+    bottom: 0px;
+    height: 82px;
+    width: 100%;
+    /* width: 100%;
+    height: 10vh;
+    display: flex;  */
+    z-index: 1;
+
+}
