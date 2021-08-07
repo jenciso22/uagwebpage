@@ -153,7 +153,6 @@ function TableproyectosgeneralesA () {
             <div className='tableProyectosGenerales'>
             <br />
             <br />
-        
             <MaterialTable
                 columns={columns}
                 data={data}
