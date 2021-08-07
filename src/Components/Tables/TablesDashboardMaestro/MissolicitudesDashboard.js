@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import MaterialTable from 'material-table';
 import axios from 'axios';
-// import './Tables/Tablemisproyectos.css';
+import '../Tablemisproyectos.css';
 
 
 const columns=[

@@ -1,7 +1,8 @@
 import React from 'react'
 import Footer from '../Components/Footer/Footer'
-import Tableproyectosgenerales from '../Components/Tables/Tableproyectosgenerales'
 import NavbarAlumno from '../Components/Navbar/NavbarAlumno'
+import TableproyectosgeneralesA from '../Components/Tables/TableproyectosgeneralesA'
+
 
 function ProyectosgeneralesAlumno() {
     return (
@@ -10,7 +11,7 @@ function ProyectosgeneralesAlumno() {
                 <div className='tablemisproyectos'>
                     <br />
                     <br />
-                <Tableproyectosgenerales />
+                <TableproyectosgeneralesA />
                 <br />
                 <br />
                 <br />

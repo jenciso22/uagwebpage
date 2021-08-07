@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import MaterialTable from 'material-table';
 import axios from 'axios';
-import { Modal, Button } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core';
+// import { Modal, Button } from '@material-ui/core';
+// import { makeStyles } from '@material-ui/core';
 import './Tablemisproyectos.css';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+// import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+// import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 
 
@@ -21,50 +21,50 @@ const columns=[
 
 const baseUrl="http://localhost:3001/solicitudes";
 
-const useStyles = makeStyles((theme)=>({
+// const useStyles = makeStyles((theme)=>({
 
-    modal:{
-        position: 'absolute',
-        width: 400,
-        backgroundColor: theme.palette.background.paper,
-        border: '2px solid #000',
-        boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)'
-    },
-    iconos:{
-        cursor: 'pointer',
-    },
-    inputMaterial:{
-        width: '100%'
-    },
+//     modal:{
+//         position: 'absolute',
+//         width: 400,
+//         backgroundColor: theme.palette.background.paper,
+//         border: '2px solid #000',
+//         boxShadow: theme.shadows[5],
+//         padding: theme.spacing(2, 4, 3),
+//         top: '50%',
+//         left: '50%',
+//         transform: 'translate(-50%, -50%)'
+//     },
+//     iconos:{
+//         cursor: 'pointer',
+//     },
+//     inputMaterial:{
+//         width: '100%'
+//     },
 
-    MaterialTable:{
-        color: 'red'
-    }
+//     MaterialTable:{
+//         color: 'red'
+//     }
     
-    }));
+//     }));
 
 function TablemisolicitudA () {
-    const styles = useStyles();
+    // const styles = useStyles();
     // const [selectedRow, setSelectedRow] = useState(null);
     const [data, setData] = useState([]);
     // const [modalInsertar, setModalInsertar] = useState(false);
     // const [modalEditar, setModalEditar]= useState(false);
-    const [modalEliminar, setModalEliminar]= useState(false);
-    const [modalAceptar, setModalAceptar]= useState(false);
-    const [proyectoSeleccionado, setProyectoSeleccionado]= useState({
-        id: "",
-        alumno: "",
-        nombre_proyecto: "",
-        vacante_solicitada: "",
-        cuatrimestre: "",
-        estatusOne: "",
-        estatus:"",
-        estatusDenegado:""
-    })
+    // const [modalEliminar, setModalEliminar]= useState(false);
+    // const [modalAceptar, setModalAceptar]= useState(false);
+    // const [proyectoSeleccionado, setProyectoSeleccionado]= useState({
+    //     id: "",
+    //     alumno: "",
+    //     nombre_proyecto: "",
+    //     vacante_solicitada: "",
+    //     cuatrimestre: "",
+    //     estatusOne: "",
+    //     estatus:"",
+    //     estatusDenegado:""
+    // })
     
     // const handleChange=e=>{
     //     const{name, value}=e.target;
@@ -93,29 +93,29 @@ function TablemisolicitudA () {
     //     })
     //   }
 
-      const peticionPut=(accept)=>{
-         axios.put(baseUrl+"/"+proyectoSeleccionado.id, proyectoSeleccionado)
-        .then(response=>{
-          // eslint-disable-next-line array-callback-return
-          console.log(proyectoSeleccionado, data);
-          const currentRow = data.find(el=>el.id===proyectoSeleccionado.id)
-          const oldData = data.find(el=>el.id!==proyectoSeleccionado.id)
-          if(accept){
-            currentRow.estatus="Aceptado";
-              abrirCerrarModalAceptar();
-          }else{
-              currentRow.estatus="Denegado";
-              abrirCerrarModalEliminar();
-          }
-          setData([
-              ...oldData,currentRow
-          ]);
+      // const peticionPut=(accept)=>{
+      //    axios.put(baseUrl+"/"+proyectoSeleccionado.id, proyectoSeleccionado)
+      //   .then(response=>{
+      //     // eslint-disable-next-line array-callback-return
+      //     console.log(proyectoSeleccionado, data);
+      //     const currentRow = data.find(el=>el.id===proyectoSeleccionado.id)
+      //     const oldData = data.find(el=>el.id!==proyectoSeleccionado.id)
+      //     if(accept){
+      //       currentRow.estatus="Aceptado";
+      //         abrirCerrarModalAceptar();
+      //     }else{
+      //         currentRow.estatus="Denegado";
+      //         abrirCerrarModalEliminar();
+      //     }
+      //     setData([
+      //         ...oldData,currentRow
+      //     ]);
        
 
-        }).catch(error=>{
-          console.log(error);
-        })
-      }
+      //   }).catch(error=>{
+      //     console.log(error);
+      //   })
+      // }
 
     //   const peticionPuts=async()=>{
     //     await axios.put(baseUrl+"/"+proyectoSeleccionado.id, proyectoSeleccionado)
@@ -160,12 +160,12 @@ function TablemisolicitudA () {
     //   }
       
 
-      const seleccionarProyecto =(proyecto, caso)=>{
-        setProyectoSeleccionado(proyecto);
-        (caso==="Aceptar")?abrirCerrarModalAceptar()
-        :
-        abrirCerrarModalEliminar()
-      }
+      // const seleccionarProyecto =(proyecto, caso)=>{
+      //   setProyectoSeleccionado(proyecto);
+      //   (caso==="Aceptar")?abrirCerrarModalAceptar()
+      //   :
+      //   abrirCerrarModalEliminar()
+      // }
     
 
         // const abrirCerrarModalInsertar=()=>{
@@ -175,12 +175,12 @@ function TablemisolicitudA () {
         //     setModalEditar(!modalEditar);
         // }
 
-        const abrirCerrarModalEliminar=()=>{
-            setModalEliminar(!modalEliminar);
-          }
-          const abrirCerrarModalAceptar=()=>{
-            setModalAceptar(!modalAceptar);
-          }
+        // const abrirCerrarModalEliminar=()=>{
+        //     setModalEliminar(!modalEliminar);
+        //   }
+        //   const abrirCerrarModalAceptar=()=>{
+        //     setModalAceptar(!modalAceptar);
+        //   }
 
         useEffect(() => {
             peticionGet();
@@ -232,29 +232,29 @@ function TablemisolicitudA () {
     //   )
 
 
-      const bodyEliminar=(
-        <div className={styles.modal}>
-          <p>Estás seguro que deseas DENEGAR esta solicitud de <b>{proyectoSeleccionado && proyectoSeleccionado.alumno}</b>? </p>
-          <div align="right">
-            <Button color="secondary" onClick={()=>peticionPut(false)}>Sí</Button>
-            <Button onClick={()=>abrirCerrarModalEliminar()}>No</Button>
+      // const bodyEliminar=(
+      //   <div className={styles.modal}>
+      //     <p>Estás seguro que deseas DENEGAR esta solicitud de <b>{proyectoSeleccionado && proyectoSeleccionado.alumno}</b>? </p>
+      //     <div align="right">
+      //       <Button color="secondary" onClick={()=>peticionPut(false)}>Sí</Button>
+      //       <Button onClick={()=>abrirCerrarModalEliminar()}>No</Button>
     
-          </div>
+      //     </div>
     
-        </div>
-      )
+      //   </div>
+      // )
 
-      const bodyAceptar=(
-        <div className={styles.modal}>
-          <p>Estás seguro que deseas ACEPTAR esta solicitud de <b>{proyectoSeleccionado && proyectoSeleccionado.alumno}</b>? </p>
-          <div align="right">
-            <Button color="secondary" onClick={()=>peticionPut(true)}>Sí</Button>
-            <Button onClick={()=>abrirCerrarModalAceptar()}>No</Button>
+      // const bodyAceptar=(
+      //   <div className={styles.modal}>
+      //     <p>Estás seguro que deseas ACEPTAR esta solicitud de <b>{proyectoSeleccionado && proyectoSeleccionado.alumno}</b>? </p>
+      //     <div align="right">
+      //       <Button color="secondary" onClick={()=>peticionPut(true)}>Sí</Button>
+      //       <Button onClick={()=>abrirCerrarModalAceptar()}>No</Button>
     
-          </div>
+      //     </div>
     
-        </div>
-      )
+      //   </div>
+      // )
     
 
 
@@ -271,21 +271,21 @@ function TablemisolicitudA () {
                 data={data}
                 title= 'Mis Solicitudes'
 
-                actions={[
-                    {
-                        icon: CheckCircleIcon,
-                        tooltip: 'Aceptar',
-                        onClick: (event, rowData)=> seleccionarProyecto(rowData,"Aceptar")
-                    },
-                    {
-                        icon: HighlightOffIcon,
-                        tooltip: 'Denegar',
-                        onClick: (event, rowData)=> seleccionarProyecto(rowData, "Eliminar")
+                // actions={[
+                //     {
+                //         icon: CheckCircleIcon,
+                //         tooltip: 'Aceptar',
+                //         onClick: (event, rowData)=> seleccionarProyecto(rowData,"Aceptar")
+                //     },
+                //     {
+                //         icon: HighlightOffIcon,
+                //         tooltip: 'Denegar',
+                //         onClick: (event, rowData)=> seleccionarProyecto(rowData, "Eliminar")
 
-                    }
+                //     }
 
 
-                ]}
+                // ]}
                 options={{
                     actionsColumnIndex: -1,
                     rowStyle:{
@@ -323,7 +323,7 @@ function TablemisolicitudA () {
             onClose={abrirCerrarModalEditar}>
             {bodyEditar}
             </Modal> */}
-
+{/* 
                 <Modal
             open={modalEliminar}
             onClose={abrirCerrarModalEliminar}>
@@ -334,7 +334,7 @@ function TablemisolicitudA () {
             open={modalAceptar}
             onClose={abrirCerrarModalAceptar}>
             {bodyAceptar}
-            </Modal>
+            </Modal> */}
         </div>
     )
 }

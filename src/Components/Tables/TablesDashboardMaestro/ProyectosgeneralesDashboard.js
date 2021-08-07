@@ -3,7 +3,7 @@ import MaterialTable from 'material-table';
 import axios from 'axios';
 // import { Modal, Button, TextField } from '@material-ui/core';
 // import { makeStyles } from '@material-ui/core';
-// import './Tablemisproyectos.css';
+import '../Tablemisproyectos.css';
 
 
 
