@@ -1,12 +1,12 @@
 import React from 'react'
-import Navbar from '../Components/Navbar/Navbar'
+import NavbarAlumno from '../Components/Navbar/NavbarAlumno'
 import Footer from '../Components/Footer/Footer'
 import Tablesolicitudes from '../Components/Tables/Tablesolicitudes'
 
 function Solicitudes() {
     return (
         <>
-            <Navbar />
+            <NavbarAlumno/>
                 <div className='tablemisproyectos'>
                     <Tablesolicitudes />
                     <br />

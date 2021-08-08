@@ -1,12 +1,12 @@
-import React from 'react'
-import Navbar from '../Components/Navbar/Navbar'
-import Footer from '../Components/Footer/Footer'
-import Tableperfilalumnos from '../Components/Tables/Tableperfilalumnos'
+import React from 'react';
+import NavbarAlumno from '../Components/Navbar/NavbarAlumno';
+import Footer from '../Components/Footer/Footer';
+import Tableperfilalumnos from '../Components/Tables/Tableperfilalumnos';
 
 function Perfilesalumnos() {
     return (
         <>
-            <Navbar />
+            <NavbarAlumno/>
                 <div className='tablemisproyectos'>
                     <Tableperfilalumnos />
                 <br />

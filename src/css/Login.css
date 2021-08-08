@@ -1,89 +1,71 @@
+ .principal{
+     position: relative;
+     background-color: white;
+ }
+ 
  .containerPrincipal{
-    background: white;
-  
-} 
-.slide-image{
+    /*todo el cuerpo*/
+    background-image: url("./UAGPrincipal.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
     mix-blend-mode: luminosity;
     filter: blur(2px);
-}
-.uaglogo-principal{
-   /* position: fixed;
-    background-position: center;
-     width: 1920px;
-    height: 917px; */
-    position: relative;
-    width: 100vw;
     height: 100vh;
-    display: flex;
-    
-}
-
-.uaglogo-leyenda{
-    position: relative;
-    mix-blend-mode: luminosity;
-    background-position: center;
-    align-items: center;
-    bottom: -5%;
-    
-
-
-}
-
+} 
 
 .containerSecundario{
     text-align: center;
+    border: 1px solid black;
+    padding: 15px;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    border: 1px solid black;
-    width: 350px;
-    height: 650px;
+    max-width: 350px;
     background: #7D211A;
     box-shadow: 0px 15px 15px;
-    border-radius: 8px;
+    border-radius: 12px;
 }
 
-.form-group{
+.uaglogo-leyenda{
+    /*position: relative;*/
+    mix-blend-mode: luminosity;
+    background-position: center;
     align-items: center;
-    font-size: 18px;
-    position: absolute;
-    top: 45%;
-    left: 10%;
-
+    padding-bottom: 20px;
+    /*bottom: -5%;*/
 }
 
 
 .form-control{
     align-items: center;
-    width: 18rem;
-    height: 100%;
+    width: 100%;
     padding: 15px;
     padding-left: 1.5rem;
     font-size: 1rem;
-    /* background: transparent;
-    color: #FDFCFD; */
     border: none;
+    outline: none;
     box-sizing: border-box;
-    margin: 1px 0;
     box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
     border-radius: 10px;
-    display: inline-block;
     line-height: normal;
-    
+}
+
+.form-control:first-of-type{
+    margin-bottom: 20px;
 }
 
 .btn-primary{
     align-items: center;
     box-sizing: border-box;
-    position: relative;
     line-height: 1.333333;
     background-color: transparent;
     padding: 10px 16px;
     border-radius: 6px;
     font-size: 20px;
     margin: 40px 0;
-    width: 250px;
+    width: 100%;
     color: #f59700;
     cursor: pointer;
     white-space: inherit;
@@ -95,6 +77,5 @@
     background: #EEA236;
     color: white;
     border: 1px solid transparent;
-    
   }
 

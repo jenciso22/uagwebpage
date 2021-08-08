@@ -1,12 +1,12 @@
-import React from 'react'
-import Navbar from '../Components/Navbar/Navbar'
-import Footer from '../Components/Footer/Footer'
-import Tableproyectosgenerales from '../Components/Tables/Tableproyectosgenerales'
+import React from 'react';
+import NavbarAlumno from '../Components/Navbar/NavbarAlumno';
+import Footer from '../Components/Footer/Footer';
+import Tableproyectosgenerales from '../Components/Tables/Tableproyectosgenerales';
 
 function Proyectosgenerales() {
     return (
         <>
-            <Navbar />
+            <NavbarAlumno/>
                 <div className='tablemisproyectos'>
                     <br />
                     <br />
