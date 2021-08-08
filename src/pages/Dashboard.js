@@ -1,7 +1,7 @@
 import React from 'react';
-import Navbar from '../Components/Navbar/Navbar'
-import Footer from '../Components/Footer/Footer'
-import '../css/Dashboard.css'
+import NavbarAlumno from '../Components/Navbar/NavbarAlumno';
+import Footer from '../Components/Footer/Footer';
+import '../css/Dashboard.css';
 import MisproyectosDashboard from '../Components/Tables/TablesDashboardMaestro/MisproyectosDashboard';
 import MissolicitudesDashboard from '../Components/Tables/TablesDashboardMaestro/MissolicitudesDashboard';
 import ProyectosgeneralesDashboard from '../Components/Tables/TablesDashboardMaestro/ProyectosgeneralesDashboard';
@@ -14,7 +14,7 @@ function Dashboard () {
 
         return(
             <div className='dashboard-container'>
-                <Navbar /> 
+                <NavbarAlumno/> 
                 <br />
                 <MisproyectosDashboard />
                 <br />

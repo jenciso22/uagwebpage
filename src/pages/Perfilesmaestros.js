@@ -6,7 +6,7 @@ import TableperfilmaestrosA from '../Components/Tables/TableperfilmaestrosA'
 function Perfilesmaestros () {
     return (
         <>
-            <NavbarAlumno />
+            <NavbarAlumno/>
                 <div className='tablemisproyectos'>
                     <TableperfilmaestrosA />
                 <br />

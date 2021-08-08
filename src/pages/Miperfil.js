@@ -1,16 +1,11 @@
-import React from 'react'
-import Navbar from '../Components/Navbar/Navbar'
-import Footer from '../Components/Footer/Footer'
-
-
-
-
-
+import React from 'react';
+import NavbarAlumno from '../Components/Navbar/NavbarAlumno';
+import Footer from '../Components/Footer/Footer';
 
 function Miperfil() {
     return (
         <>
-            <Navbar />
+            <NavbarAlumno/>
                 <div className='miperfil'>
                     <h1>Mi perfil</h1>
                 </div>

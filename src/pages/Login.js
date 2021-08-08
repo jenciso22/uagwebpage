@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import '../css/Login.css';
 import axios from 'axios';
-import md5 from 'md5';
+//import md5 from 'md5'; /**Cifra las contraseñas */
+import Swal from 'sweetalert2';
 import Cookies from 'universal-cookie';
 import uaglogo from '../css/UAGPrincipal.jpeg';
 import uaglogodos from '../css/logo_leyenda.png';
@@ -10,6 +11,7 @@ const baseUrl="http://localhost:3001/usuarios";
 const cookies = new Cookies();
 
 class Login extends Component {
+
     state={
         form:{
             username: '',
@@ -26,8 +28,24 @@ class Login extends Component {
         });
     }
 
-    iniciarSesion=async()=>{
-        await axios.get(baseUrl, {params: {username: this.state.form.username, password: md5(this.state.form.password)}})
+    iniciarSesion = async (e) => {
+        e.preventDefault();
+
+        console.log( this.state.form );
+        //Validar si los campos estan llenos 
+        if( !Object.values(this.state.form).every( valor =>  valor !== "") ){
+            Swal.fire({
+                icon: 'error',
+                title: 'Campos vacios',
+                text: 'Todos los campos son obligatorios!',
+            });
+            return;
+        }
+
+        //md5(this.state.form.password)
+        
+        await axios.get(baseUrl, {params: {username: this.state.form.username, password: this.state.form.password}})
+        
         .then(response=>{
             return response.data;
         })
@@ -41,21 +59,29 @@ class Login extends Component {
                 cookies.set('username', respuesta.username, {path: "/"});
                 cookies.set('role', respuesta.role, {path: "/"});
 
-                if(respuesta.role==='Alumno'){
-                alert(`Bienvenido Alumno - ${respuesta.nombre} ${respuesta.apellido_paterno}`);
-                window.location.href="./dashboard-alumno";} else{
-                alert(`Bienvenido Maestro - ${respuesta.nombre} ${respuesta.apellido_paterno}`);
-                    window.location.href="./dashboard";
-                }
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Bienvenido',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+
+                setTimeout(() => {
+                    respuesta.role === "Alumno" ? window.location.href="./dashboard-alumno" : window.location.href="./dashboard";
+                }, 1500);
 
             }else{
-                alert('El usuario o la contraseña no son correctos');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al iniciar sesión',
+                    text: 'El usuario o contraseña son incorrectos!',
+                });
             }
         })
         .catch(error=>{
             console.log(error);
         })
-
     }
 
     componentDidMount() {
@@ -67,38 +93,31 @@ class Login extends Component {
 
     render() {
         return (
-    <div className="containerPrincipal">
-        <div className='slide-image'>
-        <img src={uaglogo} alt='imagenuag' className='uaglogo-principal'/>
-        </div>
-        <div className="containerSecundario">
-        <img src={uaglogodos} alt='logo-leyenda' className='uaglogo-leyenda'/>
-          <div className="form-group">
-            <label> </label>
-            <br />
-            <input
-              type="text"
-              placeholder="Usuario"
-              className="form-control"
-              name="username"
-              onChange={this.handleChange}
-
-            />
-            <br />
-            <label> </label>
-            <br />
-            <input
-              type="password"
-              placeholder="Contraseña"
-              className="form-control"
-              name="password"
-              onChange={this.handleChange}
-            />
-            <br />
-            <button className="btn btn-primary" onClick={()=> this.iniciarSesion()}>Ingresar</button>
-          </div>
-        </div>
-      </div>
+            <div className="principal">
+                <div className="containerPrincipal">
+                </div>
+                <div className="containerSecundario">
+                        <img src={uaglogodos} alt='logo-leyenda' className='uaglogo-leyenda'/>
+                        <form className="form-group" onSubmit={ (e) => this.iniciarSesion(e)}>
+                            <input
+                                type="text"
+                                placeholder="Usuario"
+                                className="form-control"
+                                name="username"
+                                onChange={this.handleChange}
+                            />
+                            <input
+                                type="password"
+                                placeholder="Contraseña"
+                                className="form-control"
+                                name="password"
+                                onChange={this.handleChange}
+                            />
+                            <input type="submit" className="btn btn-primary" value="Ingresar"/>
+                            {/*<button className="btn btn-primary" onClick={()=> this.iniciarSesion()}>Ingresar</button>*/}
+                        </form>
+                </div>
+            </div>
         );
     }
 }

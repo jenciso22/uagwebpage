@@ -16,25 +16,23 @@ import './App.css';
 
 
 
-
-function App() {
-  return (
+const App = () => {
+  return ( 
     <>
-    {/* <Router>
-      <Switch>
-        <Route exact path='/' component={Login}/>
-        <Route exact path='/dashboard' component={Dashboard}/>
-        <Route exact path='/perfil' component={Miperfil}/>
-        <Route exact path='/proyectos' component={Misproyectos}/>
-        <Route exact path='/alumnos' component={Perfilesalumnos}/>
-        <Route exact path='/proyectosgenerales' component={Proyectosgenerales}/>
-        <Route exact path='/solicitudes' component={Solicitudes}/>
-      </Switch>
-    </Router> */}
+      {/* <Router>
+        <Switch>
+          <Route exact path='/' component={Login}/>
+          <Route exact path='/dashboard' component={Dashboard}/>
+          <Route exact path='/perfil' component={Miperfil}/>
+          <Route exact path='/proyectos' component={Misproyectos}/>
+          <Route exact path='/alumnos' component={Perfilesalumnos}/>
+          <Route exact path='/proyectosgenerales' component={Proyectosgenerales}/>
+          <Route exact path='/solicitudes' component={Solicitudes}/>
+        </Switch>
+      </Router> */}
     </>
 
-    
-  );
+   );
 }
-
+ 
 export default App;
