@@ -6,7 +6,7 @@ import * as BiIcons from 'react-icons/bi';
 import{SidebarDataAlumno} from './SidebarDataAlumno';
 import{SidebarData} from './SidebarData';
 import './Navbar.css'
-import { IconContext } from 'react-icons';
+// import { IconContext } from 'react-icons';
 import logouag from './logoMini.png'
 import {Datamenu} from './Datamenu'
 import Cookies from 'universal-cookie';
