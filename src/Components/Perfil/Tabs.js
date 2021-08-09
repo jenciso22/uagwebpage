@@ -103,7 +103,7 @@ function Tabs() {
               <h2>Acerca de Mi</h2>
               <hr />
 
-              <form className="row" onSubmit={enviarDatos}>
+              <form className="row-tabs" onSubmit={enviarDatos}>
                 <div className="col-md-3">
                   <input
                     type="text"
@@ -117,15 +117,15 @@ function Tabs() {
                   <input
                     type="text"
                     placeholder="Acerca de Mi"
-                    className="form-control"
+                    className="form-control-aboutme"
                     onChange={handleInputChange}
                     name="acercademi"
                   />
                 </div>
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="btntabs btn-primary-tabs">
                   Guardar
                 </button>
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="btntabs btn-primary-tabs">
                   Editar
                 </button>
               </form>
