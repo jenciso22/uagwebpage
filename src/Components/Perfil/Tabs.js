@@ -107,21 +107,21 @@ function Tabs() {
                 <div className="col-md-3">
                   <input
                     type="text"
-                    placeholder="Acerca de Mi"
-                    className="form-control"
+                    placeholder="Nombre Completo"
+                    className="form-control-name"
                     onChange={handleInputChange}
                     name="nombre"
                   />
                 </div>
-                {/* <div className="col-md-3">
+                <div className="col-md-3">
                   <input
                     type="text"
-                    placeholder="Apellido"
+                    placeholder="Acerca de Mi"
                     className="form-control"
                     onChange={handleInputChange}
-                    name="apellido"
+                    name="acercademi"
                   />
-                </div> */}
+                </div>
                 <button type="submit" className="btn btn-primary">
                   Guardar
                 </button>
