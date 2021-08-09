@@ -2,7 +2,8 @@ import React, {useState, useEffect} from 'react';
 import MaterialTable from 'material-table';
 import axios from 'axios';
 import './Tablemisproyectos.css';
-
+import { red } from '@material-ui/core/colors';
+import ClipLoader from "react-spinners/ClipLoader";
 
 
 const columns=[
@@ -45,7 +46,11 @@ function Tableperfilalumnos() {
     
     return (
         <>
-        {loading?<h1>Loading</h1>: 
+        {loading?
+        <div className='spinner-container'>
+        <ClipLoader color={red}  loading={loading} size={40} />
+        </div>
+        : 
         <div>
             <div className='tablePerfilAlumnos'>
             <br />

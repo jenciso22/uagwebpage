@@ -2,7 +2,9 @@ import React, {useState, useEffect} from 'react';
 import MaterialTable from 'material-table';
 import axios from 'axios';
 import './Tablemisproyectos.css';
-
+import { red } from '@material-ui/core/colors';
+import ClipLoader from "react-spinners/ClipLoader";
+// import { css } from "@emotion/react";
 
 
 
@@ -15,6 +17,12 @@ const columns=[
     {title: 'Fecha de Entrega', field: 'fecha_entrega'}
 ];
 
+// const loaderCSS  = css `
+
+//     margin-top: 50px;
+//     margin-bottom: 50px;
+
+// `
 
 
 const baseUrl="http://localhost:3001/proyectos";
@@ -48,7 +56,12 @@ function TablemiproyectoA() {
     return (
 
       <>
-        {loading?<h1>Loading</h1>: 
+        
+        {loading?
+        <div className='spinner-container'>
+        <ClipLoader color={red}  loading={loading} size={40} />
+        </div>
+        : 
         <div>            
           <div className='tableMisProyectos'>
           <br />
@@ -87,7 +100,6 @@ function TablemiproyectoA() {
 
         </div>
         </div>}
-
       </>
 
     )

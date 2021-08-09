@@ -6,7 +6,8 @@ import { makeStyles } from '@material-ui/core';
 import './Tablemisproyectos.css';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-
+import { red } from '@material-ui/core/colors';
+import ClipLoader from "react-spinners/ClipLoader";
 
 
 const columns=[
@@ -149,9 +150,15 @@ function Tablesolicitudes() {
     return (
 
       <>
-      {loading?<h1>Loading</h1>: 
+      {loading?
+      
+      <div className='spinner-container'>
+      <ClipLoader color={red}  loading={loading} size={40} />
+      </div>
+      
+      : 
       <div>
-                <div className='tableSolicitudes'>
+            <div className='tableSolicitudes'>
             <br />
             <br />
             
