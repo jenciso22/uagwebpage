@@ -5,7 +5,8 @@ import SendIcon from '@material-ui/icons/Send';
 import { Modal, Button} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 import './Tablemisproyectos.css';
-
+import { red } from '@material-ui/core/colors';
+import ClipLoader from "react-spinners/ClipLoader";
 
 
 const columns=[
@@ -148,7 +149,11 @@ function TableproyectosgeneralesA () {
 
     return (
       <>
-      {loading?<h1>Loading</h1>: 
+      {loading?
+      <div className='spinner-container'>
+      <ClipLoader color={red}  loading={loading} size={40} />
+      </div>
+      : 
       <div>
             <div className='tableProyectosGenerales'>
             <br />

@@ -4,7 +4,7 @@ import axios from 'axios';
 //import md5 from 'md5'; /**Cifra las contraseñas */
 import Swal from 'sweetalert2';
 import Cookies from 'universal-cookie';
-import uaglogo from '../css/UAGPrincipal.jpeg';
+// import uaglogo from '../css/UAGPrincipal.jpeg';
 import uaglogodos from '../css/logo_leyenda.png';
 
 const baseUrl="http://localhost:3001/usuarios";

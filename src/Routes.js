@@ -18,6 +18,9 @@ import Perfilesmaestros from './pages/Perfilesmaestros';
 import ProyectosgeneralesAlumno from './pages/ProyectosgeneralesAlumno';
 import SolicitudesAlumno from './pages/SolicitudesAlumno';
 import MiproyectoAlumno from './pages/MiproyectoAlumno';
+import Tabs from './Components/Perfil/Tabs';
+
+
 // import TableMisProyectos from './Components/Tables/Tablemisproyectos';
 
 
@@ -41,6 +44,8 @@ function Routes() {
         <Route exact path='/proyectosgenerales-alumno' component={ProyectosgeneralesAlumno}/>
         <Route exact path='/solicitudes' component={Solicitudes}/>
         <Route exact path='/solicitudes-alumno' component={SolicitudesAlumno}/>
+        <Route exact path='/tabs' component={Tabs}/>
+        
       </Switch>
     </Router>
     </>

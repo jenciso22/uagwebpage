@@ -6,6 +6,8 @@ import axios from 'axios';
 import './Tablemisproyectos.css';
 // import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 // import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import ClipLoader from "react-spinners/ClipLoader";
+import { red } from '@material-ui/core/colors';
 
 
 
@@ -264,12 +266,16 @@ function TablemisolicitudA () {
     return (
 
         <>
-        {loading?<h1>Loading</h1>: 
+        {loading?
+            <div className='spinner-container'>
+            <ClipLoader color={red}  loading={loading} size={40} />
+            </div>
+        : 
         <div>
         <div className='tableSolicitudes'>
         <br />
         <br />
-        
+
             <MaterialTable
                 columns={columns}
                 data={data}

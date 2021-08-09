@@ -56,5 +56,18 @@
     bottom: 20;
     border-radius: 8px;
     font-size: 15px;
+    border: 1px solid black;
+    cursor: pointer;
 
+}
+
+.spinner-container {
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    mix-blend-mode: luminosity;
+    margin-top: 100px;
+    margin-bottom: 100px;
 }
