@@ -198,7 +198,7 @@ function Tablemisproyectos() {
         <div className={styles.modal}>
           <h3>Editar Artista</h3>
           <br />
-          <TextField className={styles.inputMaterial} label="Nombre Proyecto" name="nombre_proyecto" onChange={handleChange} value={proyectoSeleccionado&&proyectoSeleccionado.name}/>
+          <TextField className={styles.inputMaterial} label="Nombre Proyecto" name="nombre_proyecto" onChange={handleChange} value={proyectoSeleccionado&&proyectoSeleccionado.nombre_proyecto}/>
           <br />
           <TextField className={styles.inputMaterial} label="Descripcion" name="descripcion" onChange={handleChange} value={proyectoSeleccionado&&proyectoSeleccionado.descripcion}/>          
     <br />
