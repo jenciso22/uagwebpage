@@ -31,7 +31,7 @@ const ToggleTres = (props) => {
               <hr />
                 <form className="row-tabs" onSubmit={enviarDatos}>
                     <div className="col-md-3">
-                      <textarea className="textarea" name="experiencia" rows="10" cols="50">Experiencia Profesional</textarea>
+                      <textarea className="textarea" name="experiencia" rows="10" cols="50" onChange={handleInputChange}>Experiencia Profesional</textarea>
                       {/*<input
                           type="text"
                           placeholder="Experiencia Profesional"
@@ -41,7 +41,7 @@ const ToggleTres = (props) => {
                       />*/}
                     </div>
                     <div className="col-md-3">
-                      <textarea className="textarea" name="Proyectos" rows="10" cols="50">proyectos profesionales</textarea>
+                      <textarea className="textarea" name="Proyectos" rows="10" cols="50" onChange={handleInputChange}>Proyectos profesionales</textarea>
                       {/*<input
                           type="text"
                           placeholder="Proyectos Profesionales"
@@ -51,7 +51,7 @@ const ToggleTres = (props) => {
                       />*/}
                     </div>
                     <div className="col-md-3">
-                      <textarea className="textarea" name="habiidades" rows="10" cols="50">Habilidades</textarea>
+                      <textarea className="textarea" name="habiidades" rows="10" cols="50" onChange={handleInputChange}>Habilidades</textarea>
                       {/*
                         <input
                           type="text"
