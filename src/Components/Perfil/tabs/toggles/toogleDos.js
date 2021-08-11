@@ -30,7 +30,7 @@ const ToggleDos = (props) => {
               }
             >
               <h2>Informacion Escolar</h2>
-              <hr />
+            
               <form className="row-tabs" onSubmit={enviarDatos}>
                 <div className="col-md-3">
                   <input
