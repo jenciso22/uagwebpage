@@ -11,7 +11,6 @@ const ToggleUno = (props) => {
     event.preventDefault();
     /*Validar que los campos no esten vacios */
 
-
     /*Enviar nuevos datos al backend*/
 
     /*Llenar formulario con nuevos datos*/
@@ -36,7 +35,7 @@ const ToggleUno = (props) => {
             }
         >
               <h2>Acerca de Mi</h2>
-              <hr />
+              <hr/>
 
               <form className="row-tabs" onSubmit={enviarDatos}>
                 <div className="col-md-3">
