@@ -28,7 +28,7 @@ const ToggleCinco = (props) => {
               }
             >
               <h2>Contacto</h2>
-              <hr />
+              
                 <form className="row-tabs" onSubmit={enviarDatos}>
                         <div className="col-md-3">
                         <input

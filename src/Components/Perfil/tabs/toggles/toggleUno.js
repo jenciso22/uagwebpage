@@ -35,36 +35,35 @@ const ToggleUno = (props) => {
             }
         >
               <h2>Acerca de Mi</h2>
-              <hr/>
 
               <form className="row-tabs" onSubmit={enviarDatos}>
-                <div className="col-md-3">
-                  <input
-                    type="text"
-                    placeholder="Nombre Completo"
-                    className="form-control-normal"
-                    onChange={handleInputChange}
-                    name="nombre"
-                  />
-                </div>
-                <div className="col-md-3">
-                  <textarea className="textarea" name="textarea" rows="10" cols="50">Acerca de mi</textarea>
-                  {/*<input
+                  <div className="col-md-3">
+                    <input
                       type="text"
-                      placeholder="Acerca de Mi"
-                      className="form-control-aboutme"
+                      placeholder="Nombre Completo"
+                      className="form-control-normal"
                       onChange={handleInputChange}
-                      name="acercademi"
-                    /> */}
-                </div>
-                <div className="btn-group">
-                  <button type="submit" className="btntabs btn-primary-tabs">
-                    Guardar
-                  </button>
-                  <button type="submit" className="btntabs btn-primary-tabs">
-                    Editar
-                  </button>
-                </div>
+                      name="nombre"
+                    />
+                  </div>
+                  <div className="col-md-3">
+                    <textarea className="textarea" name="textarea" rows="10" cols="50">Acerca de mi</textarea>
+                    {/*<input
+                        type="text"
+                        placeholder="Acerca de Mi"
+                        className="form-control-aboutme"
+                        onChange={handleInputChange}
+                        name="acercademi"
+                      /> */}
+                  </div>
+                  <div className="btn-group">
+                    <button type="submit" className="btntabs btn-primary-tabs">
+                      Guardar
+                    </button>
+                    <button type="submit" className="btntabs btn-primary-tabs">
+                      Editar
+                    </button>
+                  </div>
               </form>
         </div>
     );

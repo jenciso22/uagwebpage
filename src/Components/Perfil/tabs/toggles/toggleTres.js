@@ -28,7 +28,7 @@ const ToggleTres = (props) => {
               }
             >
               <h2>Informacion Profesional</h2>
-              <hr />
+           
                 <form className="row-tabs" onSubmit={enviarDatos}>
                     <div className="col-md-3">
                       <textarea className="textarea" name="experiencia" rows="10" cols="50">Experiencia Profesional</textarea>

@@ -29,7 +29,7 @@ const ToggleCuatro = (props) => {
               }
             >
               <h2>Proyecto de Titulacion</h2>
-              <hr />
+          
               <form className="row-tabs" onSubmit={enviarDatos}>
                         <div className="col-md-3">
                         <input
