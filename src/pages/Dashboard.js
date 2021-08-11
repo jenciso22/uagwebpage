@@ -18,9 +18,9 @@ function Dashboard () {
                 <br />
                 <MisproyectosDashboard />
                 <br />
-                <MissolicitudesDashboard />
-                <br />
                 <ProyectosgeneralesDashboard />
+                <br />
+                <MissolicitudesDashboard />
                 <br />
                 <br />
                 <br />

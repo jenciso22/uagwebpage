@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Tabs() {
+function TabsProfesor() {
   const [toggleState, setToggleState] = useState(1);
   const classes = useStyles();
   const [datos, setDatos] = useState({
@@ -84,14 +84,14 @@ function Tabs() {
               className={toggleState === 4 ? "tabs active-tabs" : "tabs"}
               onClick={() => toggleTab(4)}
             >
-              Proyecto de Titulacion
+              Contacto
             </button>
-            <button
+            {/* <button
               className={toggleState === 5 ? "tabs active-tabs" : "tabs"}
               onClick={() => toggleTab(5)}
             >
               Contacto
-            </button>
+            </button> */}
           </div>
 
           <div className="content-tabs">
@@ -152,19 +152,19 @@ function Tabs() {
                 <div className="col-md-3">
                   <input
                     type="text"
-                    placeholder="Maestria"
-                    className="form-control-normal"
+                    placeholder="Areas de Investigacion"
+                    className="form-control-medium"
                     onChange={handleInputChange}
-                    name="maestria"
+                    name="areainvestigacion"
                   />
                 </div>
                 <div className="col-md-3">
                   <input
-                    type="number"
-                    placeholder="Cuatrimestre"
-                    className="form-control-normal"
+                    type="text"
+                    placeholder="Materias Asignadas"
+                    className="form-control-medium"
                     onChange={handleInputChange}
-                    name="cuatrimestre"
+                    name="materiaasignadas"
                   />
                 </div>
                 <button type="submit" className="btntabs btn-primary-tabs">
@@ -221,73 +221,26 @@ function Tabs() {
                 </form>
             </div>
 
-            <div
+            {/* <div
               className={
                 toggleState === 4 ? "content  active-content" : "content"
               }
             >
-              <h2>Proyecto de Titulacion</h2>
+              <h2>Content 4</h2>
               <hr />
-              <form className="row-tabs" onSubmit={enviarDatos}>
-                        <div className="col-md-3">
-                        <input
-                            type="text"
-                            placeholder="Nombre Proyecto"
-                            className="form-control-normal"
-                            onChange={handleInputChange}
-                            name="nombreproyecto"
-                        />
-                        </div>
-                        <div className="col-md-3">
-                        <input
-                            type="text"
-                            placeholder="Asesor Proyecto"
-                            className="form-control-normal"
-                            onChange={handleInputChange}
-                            name="asesorproyecto"
-                        />
-                        </div>
-                        <div className="col-md-3">
-                        <input
-                            type="text"
-                            placeholder="Descripcion Proyecto"
-                            className="form-control-medium"
-                            onChange={handleInputChange}
-                            name="descripcionproyecto"
-                        />
-                        </div>
-                        <div className="col-md-3">
-                        <label className="active-label">Activo</label>
-                        <input
-                            type="checkbox"
-                            placeholder="Activo"
-                            className="form-control-checkbox"
-                            onChange={handleInputChange}
-                            name="activoCheckbox"
-                        />
-                        </div>
-                        <div className="col-md-3">
-                        <label className="inactive-label"> Inactivo</label>
-                        <input
-                            type="checkbox"
-                            placeholder="Inactivo"
-                            className="form-control-checkbox"
-                            onChange={handleInputChange}
-                            name="inactivoCheckbox"
-                        />
-                        </div>
-                        <button type="submit" className="btntabs btn-primary-tabs">
-                        Guardar
-                        </button>
-                        <button type="submit" className="btntabs btn-primary-tabs">
-                        Editar
-                        </button>
-                    </form>
-            </div>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos
+                sed nostrum rerum laudantium totam unde adipisci incidunt modi
+                alias! Accusamus in quia odit aspernatur provident et ad vel
+                distinctio recusandae totam quidem repudiandae omnis veritatis
+                nostrum laboriosam architecto optio rem, dignissimos voluptatum
+                beatae aperiam voluptatem atque. Beatae rerum dolores sunt.
+              </p>
+            </div> */}
 
             <div
               className={
-                toggleState === 5 ? "content  active-content" : "content"
+                toggleState === 4 ? "content  active-content" : "content"
               }
             >
               <h2>Contacto</h2>
@@ -335,4 +288,4 @@ function Tabs() {
   );
 }
 
-export default Tabs;
+export default TabsProfesor;

@@ -146,7 +146,7 @@
     } */
 
 
-    .form-control-name{
+    .form-control-normal{
         align-items: center;
         padding: 15px;
         padding-left: 1.5 rem;
@@ -158,6 +158,21 @@
         border-radius: 10px;
         line-height: normal;
         width: 100%;
+        margin: 20px 0px;
+    } 
+
+    .form-control-short{
+        align-items: center;
+        padding: 15px;
+        padding-left: 1.5 rem;
+        font-size: 1rem;
+        border: none;
+        outline: none;
+        box-sizing: border-box;
+        box-shadow: 0 0 15px 4px rgb(0 0 0 / 6%);
+        border-radius: 10px;
+        line-height: normal;
+        width: 25%;
         margin: 20px 0px;
     } 
 
@@ -177,7 +192,50 @@
         height: 15vw;
    
     } 
+    .form-control-medium{
+        align-items: center;
+        padding: 15px;
+        padding-left: 1.5 rem;
+        font-size: 1rem;
+        border: none;
+        outline: none;
+        box-sizing: border-box;
+        box-shadow: 0 0 15px 4px rgb(0 0 0 / 6%);
+        border-radius: 10px;
+        line-height: normal;
+        width: 100%;
+        margin: 20px 0px;
+        height: 7vw;
+   
+    } 
 
+    .form-control-checkbox{
+        align-items: center;
+        padding: 5px; 
+        padding-left: 1 rem;
+        font-size: 1rem;
+        /* border: none;
+        outline: none; */
+        box-sizing: border-box;
+        /* box-shadow: 0 0 2px 2px rgb(0 0 0 / 1%); */
+        /* border-radius: 10px; */
+        line-height: normal;
+        width: 10%;
+        margin: 20px 25px;
+        border-radius: 15px solid;
+        height: 25px;
+        cursor: pointer;
+        /* left: 30%; */
+   
+    } 
+
+.active-label,
+.inactive-label{
+    align-items: center;
+    font-size: 30px;
+    position: relative;
+    /* left: 30%; */
+}
 
  .btntabs{
         align-items: center;
