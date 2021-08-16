@@ -1,16 +1,12 @@
 import React, { useState } from 'react'
 
-const ToggleCuatroP = () => {
+const ToggleCuatroP = ( props ) => {
 
-    const [toggleState, setToggleState] = useState(1);
     const [datos, setDatos] = useState({
       nombre: "",
       apellido: "",
     });
   
-    const toggleTab = (index) => {
-      setToggleState(index);
-    };
   
     const handleInputChange = (event) => {
       // console.log(event.target.name)
@@ -30,11 +26,10 @@ const ToggleCuatroP = () => {
     return(
         <div
                 className={
-                  toggleState === 4 ? "content  active-content" : "content"
+                  props.toggleState === 4 ? "content  active-content" : "content"
                 }
               >
                 <h2>Contacto</h2>
-                <hr />
                   <form className="row-tabs" onSubmit={enviarDatos}>
                           <div className="col-md-3">
                           <input

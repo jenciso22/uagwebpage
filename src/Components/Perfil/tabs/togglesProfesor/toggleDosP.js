@@ -1,17 +1,12 @@
 import React, { useState } from 'react'
 
 
-const ToggleDosP = () => {
+const ToggleDosP = ( props ) => {
 
-    const [toggleState, setToggleState] = useState(1);
     const [datos, setDatos] = useState({
       nombre: "",
       apellido: "",
     });
-  
-    const toggleTab = (index) => {
-      setToggleState(index);
-    };
   
     const handleInputChange = (event) => {
       // console.log(event.target.name)
@@ -31,11 +26,10 @@ const ToggleDosP = () => {
     return(
         <div
                 className={
-                  toggleState === 2 ? "content  active-content" : "content"
+                  props.toggleState === 2 ? "content  active-content" : "content"
                 }
         >
                 <h2>Informacion Escolar</h2>
-                <hr />
                 <form className="row-tabs" onSubmit={enviarDatos}>
                   <div className="col-md-3">
                     <input

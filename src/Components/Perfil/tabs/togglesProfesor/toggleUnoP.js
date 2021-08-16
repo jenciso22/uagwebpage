@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
 
-const ToggleUnoP = () => {
+const ToggleUnoP = ( props ) => {
 
-    const [toggleState, setToggleState] = useState(1);
     const [datos, setDatos] = useState({
       nombre: "",
       apellido: "",
     });
   
-    const toggleTab = (index) => {
-      setToggleState(index);
-    };
   
     const handleInputChange = (event) => {
       // console.log(event.target.name)
@@ -29,7 +25,7 @@ const ToggleUnoP = () => {
     return(
         <div
             className={
-                toggleState === 1 ? "content  active-content" : "content"
+                props.toggleState === 1 ? "content  active-content" : "content"
             }
         >
                <h2>Acerca de Mi</h2>

@@ -1,24 +1,24 @@
 import React, { useState } from 'react';
-import PestanaPerfil from './pestanaPerfil';
-import { arrayToggle } from "./arrayToggle";
+import { arrayToggleProfesores } from "./arrayToggle";
+import PestanaPerfilProf from "./togglesProfesor/pestanaPerfilProf";
 
 
-const CambiosToggle = () => {
+const CambiosToggleProf = () => {
 
     const [toggleState, setToggleState] = useState(1);
 
     return ( 
         <>
             <div className="bloc-tabs">
-                {arrayToggle.map( ( valor ) => (
+                {arrayToggleProfesores.map( ( valor ) => (
                     <button className={ toggleState === valor.valor ? valor.classs2 : valor.class } onClick={() => setToggleState( valor.valor )}>
                         {valor.text}
                     </button>
                 ))}
             </div>
-            <PestanaPerfil toggleState={toggleState}/>
+            <PestanaPerfilProf toggleState={toggleState}/>
         </>
      );
 }
  
-export default CambiosToggle;
+export default CambiosToggleProf;

@@ -1,16 +1,12 @@
 import React, { useState } from 'react'
 
 
-const ToggleTresP = () => {
-    const [toggleState, setToggleState] = useState(1);
+const ToggleTresP = ( props ) => {
+
     const [datos, setDatos] = useState({
       nombre: "",
       apellido: "",
     });
-  
-    const toggleTab = (index) => {
-      setToggleState(index);
-    };
   
     const handleInputChange = (event) => {
       // console.log(event.target.name)
@@ -29,11 +25,10 @@ const ToggleTresP = () => {
     return(
         <div
                 className={
-                  toggleState === 3 ? "content  active-content" : "content"
+                  props.toggleState === 3 ? "content  active-content" : "content"
                 }
               >
                 <h2>Informacion Profesional</h2>
-                <hr />
                   <form className="row-tabs" onSubmit={enviarDatos}>
                       <div className="col-md-3">
                         <textarea className="textarea" name="experiencia" rows="10" cols="50">Experiencia Profesional</textarea>

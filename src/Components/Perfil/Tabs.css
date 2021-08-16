@@ -21,11 +21,11 @@
 .containernew{
   align-items: center;
   display: flex;
-  max-width: 1300px;
+  max-width: 90%;
   column-gap: 20px;
   margin: 0 auto;
+  margin-bottom: 200px;
   width: 100%;
-  margin-top: 80px;
   /*padding: 0 20px;*/
 }
 
