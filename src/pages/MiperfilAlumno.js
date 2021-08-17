@@ -9,7 +9,7 @@ function MiperfilAlumno() {
         <>
             <NavbarAlumno />
                 <div className='miperfil'>
-                    <h1>Mi perfil</h1>
+                    {/* <h1>Mi perfil</h1> */}
                 </div>
                 <Tabs/>
             <Footer />  
