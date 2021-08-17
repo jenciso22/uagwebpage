@@ -12,14 +12,8 @@ export const Datamenu = [
         icon: <FaIcons.FaUserAlt />,
         cName: 'nav-textdos'
     },
-    // {
-    //     title: 'Dashboard',
-    //     path: '/dashboard',
-    //     icon: <IoIcons.IoSettings />,
-    //     cName: 'nav-textdos'
-    // },
     {
-        title: <CerrarSesiones />,
+        title: <CerrarSesiones/>,
         path: '/',
         icon: <RiIcons.RiLogoutBoxRLine />,
         cName: 'nav-textdos'
