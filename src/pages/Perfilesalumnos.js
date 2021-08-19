@@ -7,15 +7,8 @@ function Perfilesalumnos() {
     return (
         <>
             <NavbarAlumno/>
-                <div className='tablemisproyectos'>
+                <div className='tablemisproyectos dashboard-container'>
                     <Tableperfilalumnos />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
                 </div>
             <Footer />  
         </>

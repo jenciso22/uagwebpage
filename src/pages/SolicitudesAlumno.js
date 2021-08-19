@@ -7,15 +7,8 @@ function SolicitudesAlumno () {
     return (
         <>
             <NavbarAlumno />
-                <div className='tablemisproyectos'>
+                <div className='tablemisproyectos dashboard-container'>
                     <TablemisolicitudA />
-                    <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
                 </div>
             <Footer />  
         </>

@@ -7,17 +7,8 @@ function Proyectosgenerales() {
     return (
         <>
             <NavbarAlumno/>
-                <div className='tablemisproyectos'>
-                    <br />
-                    <br />
-                <Tableproyectosgenerales />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
+                <div className='tablemisproyectos dashboard-container'>
+                    <Tableproyectosgenerales />
                 </div>
             <Footer />  
         </>
