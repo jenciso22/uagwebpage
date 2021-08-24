@@ -9,7 +9,7 @@ import '../Tablemisproyectos.css';
 const columns=[
     {title: 'Nombre de Proyecto', field: 'nombre_proyecto'},
     {title:'Descripcion', field: 'descripcion'},
-    {title:'Area', field: 'area'},
+    {title:'Area de Investigacion', field: 'area'},
     {title: 'Vacante', field: 'vacante'},
     {title: 'Fecha de Entrega', field: 'fecha_entrega'}
 ];
