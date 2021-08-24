@@ -13,28 +13,15 @@ import ProyectosgeneralesDashboard from '../Components/Tables/TablesDashboardMae
 function Dashboard () {
 
         return(
-            <div className='dashboard-container'>
+            <>
                 <NavbarAlumno/> 
-                <br />
-                <MisproyectosDashboard />
-                <br />
-                <ProyectosgeneralesDashboard />
-                <br />
-                <MissolicitudesDashboard />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
+                <div className='dashboard-container'>
+                    <MisproyectosDashboard />
+                    <ProyectosgeneralesDashboard />
+                    <MissolicitudesDashboard />
+                </div>
                 <Footer />
-            </div>
+            </>
         )
     }
 export default Dashboard;

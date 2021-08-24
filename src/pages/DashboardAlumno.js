@@ -16,29 +16,15 @@ import ProyectosgeneralesDashboardA from '../Components/Tables/TablesDashboardAl
 function DashboardAlumno () {
 
         return(
-    
-            <div className='dashboard-container'>
+            <>
                 <NavbarAlumno />
-                <br />
-                <MiproyectoDashboard />
-                <br />
-                <ProyectosgeneralesDashboardA />
-                <br />
-                <MisolicitudDashboard />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
+                <div className="dashboard-container">
+                    <MiproyectoDashboard />
+                    <ProyectosgeneralesDashboardA />
+                    <MisolicitudDashboard />
+                </div>
                 <Footer />
-            </div>
+            </>
         )
     }
 export default DashboardAlumno;

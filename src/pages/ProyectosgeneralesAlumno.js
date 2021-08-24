@@ -8,17 +8,8 @@ function ProyectosgeneralesAlumno() {
     return (
         <>
             <NavbarAlumno />
-                <div className='tablemisproyectos'>
-                    <br />
-                    <br />
-                <TableproyectosgeneralesA />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
+                <div className='tablemisproyectos dashboard-container'>
+                    <TableproyectosgeneralesA />
                 </div>
             <Footer />  
         </>

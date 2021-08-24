@@ -8,8 +8,8 @@ function MiperfilAlumno() {
     return (
         <>
             <NavbarAlumno />
-                <div className='miperfil'>
-                    {/* <h1>Mi perfil</h1> */}
+                <div className='miperfil dashboard-container'>
+                    <h1>Mi perfil</h1>
                 </div>
                 <Tabs/>
             <Footer />  
