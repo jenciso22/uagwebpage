@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 import "./Tabs.css";
 import Avatar from "../../assets/avatar.png";
 import ContainerTabsProfesores from "./tabs/containerTabsProfesores";
