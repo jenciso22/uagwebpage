@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core';
 import './Tablemisproyectos.css';
 import { red } from '@material-ui/core/colors';
 import ClipLoader from "react-spinners/ClipLoader";
+import ProyectoP from '../Proyectos/ProyectoP';
 
 
 
@@ -196,7 +197,7 @@ function Tablemisproyectos() {
     
     const bodyEditar=(
         <div className={styles.modal}>
-          <h3>Editar Artista</h3>
+          <h3>Editar Proyecto</h3>
           <br />
           <TextField className={styles.inputMaterial} label="Nombre Proyecto" name="nombre_proyecto" onChange={handleChange} value={proyectoSeleccionado&&proyectoSeleccionado.nombre_proyecto}/>
           <br />

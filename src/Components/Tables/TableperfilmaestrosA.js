@@ -9,8 +9,8 @@ import ClipLoader from "react-spinners/ClipLoader";
 const columns=[
     {title: 'Alumno', field: 'name'},
     {title:'Descripcion', field: 'username'},
-    {title:'Cuatrimestre', field: 'email'},
     {title: 'Areas de Interes', field: 'phone'},
+    {title:'Email', field: 'email'},
     {title: 'contacto', field: 'website'}
 ];
 
