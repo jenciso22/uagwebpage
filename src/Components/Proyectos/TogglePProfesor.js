@@ -15,8 +15,6 @@ const TogglePProfesor = (props) => {
   };
 
   const handleInputChange = (event) => {
-      // console.log(event.target.name)
-      // console.log(event.target.value)
       setDatos({
         ...datos,
         [event.target.name]: event.target.value,
@@ -24,14 +22,8 @@ const TogglePProfesor = (props) => {
   };
 
     return ( 
-        <div
-              className="contentproyectos"
-              // className={
-              //   props.toggleState === 5 ? "content  active-content" : "content"
-              // }
-            >
-              {/* <h2> MIS PROYECTOS </h2> */}
-              
+
+        <div className="contentproyectos">  
                 <form className="row-tabs" onSubmit={enviarDatos}>
                         <div className="col-md-3">
                         <input
@@ -88,7 +80,7 @@ const TogglePProfesor = (props) => {
                           </button>
                         </div>
                     </form>
-            </div>
+          </div>
      );
 }
  

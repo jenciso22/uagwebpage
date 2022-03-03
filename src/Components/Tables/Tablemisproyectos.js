@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core';
 import './Tablemisproyectos.css';
 import { red } from '@material-ui/core/colors';
 import ClipLoader from "react-spinners/ClipLoader";
-import ProyectoP from '../Proyectos/ProyectoP';
+
 
 
 
@@ -19,7 +19,10 @@ const columns=[
     {title: 'Fecha de Entrega', field: 'fecha_entrega'}
 ];
 
-
+const openInNewTab = (url) => {
+  const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+  if (newWindow) newWindow.opener = null
+}
 
 const baseUrl="http://localhost:3001/proyectos";
 
@@ -244,7 +247,8 @@ function Tablemisproyectos() {
           <div className='tableMisProyectos'>
             <br />
             <div className='container-insertar'>
-            <button className='btn-insertar' onClick={()=>abrirCerrarModalInsertar()}>Insertar Proyecto</button>
+            {/* <button className='btn-insertar' onClick={()=>abrirCerrarModalInsertar()}>Insertar Proyecto</button> */}
+            <button className='btn-insertar' onClick={()=>openInNewTab('http://localhost:3000/proyectop')}>Insertar Proyecto</button> 
             </div>
             <br /><br />
             
