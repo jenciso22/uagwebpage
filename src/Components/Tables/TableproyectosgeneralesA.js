@@ -133,7 +133,7 @@ function TableproyectosgeneralesA () {
 
 
 
-      const bodyInsertar=(
+      const bodySolicitar=(
         <div className={styles.modalSolicitar}>
           <p>Estás seguro que desea enviar una solicitud al proyecto <b>"{proyectoSeleccionado && proyectoSeleccionado.nombre_proyecto}"</b>? </p>
           <div align="right">
@@ -144,7 +144,6 @@ function TableproyectosgeneralesA () {
     
         </div>
       )
-
 
 
     return (
@@ -203,7 +202,7 @@ function TableproyectosgeneralesA () {
                 <Modal
             open={modalSolicitar}
             onClose={abrirCerrarModalSolicitar}>
-            {bodyInsertar}
+            {bodySolicitar}
             </Modal>
 
         </div>
