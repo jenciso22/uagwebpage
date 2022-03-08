@@ -1,4 +1,6 @@
 import React from 'react';
+import { Provider } from "react-redux";
+import store from "./store";
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -32,25 +34,27 @@ function Routes() {
   return (
     <>
     <Router>
-      <Switch>
-        <Route exact path='/' component={Login}/>
-        <Route exact path='/dashboard' component={Dashboard}/>
-        <Route exact path='/dashboard-alumno' component={DashboardAlumno}/>
-        <Route exact path='/perfil' component={Miperfil}/>
-        <Route exact path='/perfil-alumno' component={MiperfilAlumno}/>
-        <Route exact path='/proyectos' component={Misproyectos}/>
-        <Route exact path='/proyecto-alumno' component={MiproyectoAlumno}/>
-        <Route exact path='/alumnos' component={Perfilesalumnos}/>
-        <Route exact path='/maestros' component={Perfilesmaestros}/>
-        <Route exact path='/proyectosgenerales' component={Proyectosgenerales}/>
-        <Route exact path='/proyectosgenerales-alumno' component={ProyectosgeneralesAlumno}/>
-        <Route exact path='/solicitudes' component={Solicitudes}/>
-        <Route exact path='/solicitudes-alumno' component={SolicitudesAlumno}/>
-        {/* <Route exact path='/tabs' component={Tabs}/>
-        <Route exact path='/tabsprofesor' component={TabsProfesor}/> */}
-        <Route exact path='/proyectop' component={ProyectoP}/>
-        
-      </Switch>
+      <Provider store={store}>
+        <Switch>
+          <Route exact path='/' component={Login}/>
+          <Route exact path='/dashboard' component={Dashboard}/>
+          <Route exact path='/dashboard-alumno' component={DashboardAlumno}/>
+          <Route exact path='/perfil' component={Miperfil}/>
+          <Route exact path='/perfil-alumno' component={MiperfilAlumno}/>
+          <Route exact path='/proyectos' component={Misproyectos}/>
+          <Route exact path='/proyecto-alumno' component={MiproyectoAlumno}/>
+          <Route exact path='/alumnos' component={Perfilesalumnos}/>
+          <Route exact path='/maestros' component={Perfilesmaestros}/>
+          <Route exact path='/proyectosgenerales' component={Proyectosgenerales}/>
+          <Route exact path='/proyectosgenerales-alumno' component={ProyectosgeneralesAlumno}/>
+          <Route exact path='/solicitudes' component={Solicitudes}/>
+          <Route exact path='/solicitudes-alumno' component={SolicitudesAlumno}/>
+          {/* <Route exact path='/tabs' component={Tabs}/>
+          <Route exact path='/tabsprofesor' component={TabsProfesor}/> */}
+          <Route exact path='/proyectop' component={ProyectoP}/>
+          
+        </Switch>
+      </Provider>
     </Router>
     </>
 

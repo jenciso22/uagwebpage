@@ -11,17 +11,15 @@ import logouag from './logoMini.png'
 import {Datamenu} from './Datamenu'
 import Cookies from 'universal-cookie';
 
+const NavbarAlumno = () => {
 
-const cookies = new Cookies();
-
-function NavbarAlumno () {
-
+    const cookies = new Cookies();
     const [sidebar, setSidebar] = useState(false);
     const [sidemenu, setSidemenu] = useState(false);
-    const [rol, setRol] = useState("");
+    const [rol, setRol] = useState("Alumno");
 
     useEffect(() => {
-        setRol(cookies.get('role'));
+         //setRol(cookies.get('role'));
     }, [])
 
     const showSidebar = () => setSidebar(!sidebar)
@@ -73,7 +71,7 @@ function NavbarAlumno () {
                             <div className='drawer-dos'>
                                 <nav className={sidemenu ? 'nav-menudos active' : 'nav-menudos'}>
                                     <ul className='nav-menu-itemsdos' onClick={showSidemenu}>
-                                        {Datamenu.map((item, index) => {
+                                    {Datamenu.map((item, index) => {
                                             return(
                                                 <li key={index} className={item.cName}>
                                                     <i>{item.icon}</i>
@@ -87,13 +85,11 @@ function NavbarAlumno () {
                                 </nav>
                             </div>
                         }
-                    </div>   
+                    </div>
+
             </header>
         </>
-    )
+    );
 }
-
-export default NavbarAlumno
-
-
-
+ 
+export default NavbarAlumno;

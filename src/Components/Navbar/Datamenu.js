@@ -13,7 +13,7 @@ export const Datamenu = [
         cName: 'nav-textdos'
     },
     {
-        title: <CerrarSesiones/>,
+        title: "cerrar sesion",
         path: '/',
         icon: <RiIcons.RiLogoutBoxRLine />,
         cName: 'nav-textdos'
@@ -21,6 +21,8 @@ export const Datamenu = [
 
 ]
 
+
+//<CerrarSesiones/>
 
 
 

@@ -17,13 +17,12 @@ function DashboardAlumno () {
 
         return(
             <>
-                <NavbarAlumno />
+                <NavbarAlumno/>
                 <div className="dashboard-container">
                     <MiproyectoDashboard />
                     <ProyectosgeneralesDashboardA />
                     <MisolicitudDashboard />
                 </div>
-                <Footer />
             </>
         )
     }
