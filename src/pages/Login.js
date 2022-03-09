@@ -19,7 +19,7 @@ const Login = () => {
         if(cookies.get('username')){
              window.location.href="./dashboard";
         }
-        console.log(autenticado);
+        //console.log(autenticado);
     }, [autenticado])
 
     const handleChange = (e) => {
