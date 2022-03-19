@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import MaterialTable from 'material-table';
 import axios from 'axios';
+// import { useSelector, useDispatch } from "react-redux";
+// import { obtenerProyectosGenerales } from "../actions/proyectosgenerales";
 // import { Modal, Button, TextField } from '@material-ui/core';
 // import { makeStyles } from '@material-ui/core';
 import '../Tablemisproyectos.css';
@@ -19,13 +21,12 @@ const columns=[
 
 
 const baseUrl="http://localhost:3001/proyectos";
-// const baseUrl="http://jsonplaceholder.typicode.com/users";
 
 
 function ProyectosgeneralesDashboard () {
 
     const [data, setData] = useState([]);
-  
+
     const peticionGet = async()=>{
         await axios.get(baseUrl)
         .then(response=>{

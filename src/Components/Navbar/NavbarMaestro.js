@@ -3,18 +3,17 @@ import { Link } from 'react-router-dom';
 // import * as AiIcons from 'react-icons/ai';
 import * as FaIcons from 'react-icons/fa';
 import * as BiIcons from 'react-icons/bi';
-import{SidebarDataAlumno} from './SidebarDataAlumno';
+import{SidebarData} from './SidebarData';
 import './Navbar.css'
 // import { IconContext } from 'react-icons';
 import logouag from './logoMini.png'
-import {Datamenudos} from './Datamenu'
-// import Cookies from 'universal-cookie';
+import {Datamenu} from './Datamenu'
 
 const NavbarAlumno = () => {
 
-    // const cookies = new Cookies();
     const [sidebar, setSidebar] = useState(false);
     const [sidemenu, setSidemenu] = useState(false);
+
 
     const showSidebar = () => setSidebar(!sidebar)
     const showSidemenu = () => setSidemenu(!sidemenu);
@@ -31,7 +30,7 @@ const NavbarAlumno = () => {
 
                     <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
                         <ul className='nav-menu-items' onClick={showSidebar}>
-                            { SidebarDataAlumno.map((item, index) => {
+                            { SidebarData.map((item, index) => {
                                 return(
                                     <li key={index} className={item.cName}>
                                         <i>{item.icon}</i>
@@ -39,8 +38,8 @@ const NavbarAlumno = () => {
                                             <span>{item.title}</span>
                                         </Link>
                                     </li>
-                                )
-                                })  
+                                    )
+                                }) 
                             }
                         </ul>
                     </nav>
@@ -53,11 +52,11 @@ const NavbarAlumno = () => {
                             <div className='drawer-dos'>
                                 <nav className={sidemenu ? 'nav-menudos active' : 'nav-menudos'}>
                                     <ul className='nav-menu-itemsdos' onClick={showSidemenu}>
-                                    {Datamenudos.map((item, index) => {
+                                    {Datamenu.map((item, index) => {
                                             return(
                                                 <li key={index} className={item.cName}>
                                                     <i>{item.icon}</i>
-                                                    <Link to={ item.title === "Perfil" ? "/perfil-alumno" : item.path}>
+                                                    <Link to={ item.title === "Perfil" ? "/perfil" : item.path}>
                                                         <span>{item.title}</span>
                                                     </Link>
                                                 </li>

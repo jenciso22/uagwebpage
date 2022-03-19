@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import NavbarAlumno from '../Components/Navbar/NavbarAlumno';
+import NavbarMaestro from '../Components/Navbar/NavbarMaestro.js';
 import Footer from '../Components/Footer/Footer';
 import '../css/Dashboard.css';
 import MisproyectosDashboard from '../Components/Tables/TablesDashboardMaestro/MisproyectosDashboard';
@@ -24,7 +24,7 @@ function Dashboard () {
 
         return(
             <>
-                <NavbarAlumno/> 
+                <NavbarMaestro/> 
                 <div className='dashboard-container'>
                     <MisproyectosDashboard />
                     <ProyectosgeneralesDashboard />

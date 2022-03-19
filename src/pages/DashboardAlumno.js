@@ -1,5 +1,4 @@
 import React from 'react';
-import Footer from '../Components/Footer/Footer'
 import '../css/Dashboard.css'
 // import MisproyectosDashboard from '../Components/Tables/TablesDashboardMaestro/MisproyectosDashboard';
 // import MissolicitudesDashboard from '../Components/Tables/TablesDashboardMaestro/MissolicitudesDashboard';

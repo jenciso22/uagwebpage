@@ -9,7 +9,7 @@ import uaglogodos from '../css/logo_leyenda.png';
 
 const Login = () => {
     
-    const [datos, setDatos] = useState({ correo: "jorgeabascal20@gmail.com", password: "123456" });
+    const [datos, setDatos] = useState({ correo: "lorenzo20@gmail.com", password: "123456" });
     const { correo, password } =  datos;
     const cookies = new Cookies();
     const dispatch = useDispatch();
