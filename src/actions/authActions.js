@@ -25,16 +25,7 @@ export function iniciarSesionAuth(datos){
                 showConfirmButton: false,
                 timer: 1500
             });
-            if(respuesta.data.tipoUsuario === "ALUM"){
-            setTimeout(() => {
-                respuesta.data.tipoUsuario === "ALUM" ? window.location.href="./dashboard-alumno" : window.location.href="./dashboard-alumno";
-
-            }, 1500);}
-            else{
-            setTimeout(() => {
-                respuesta.data.tipoUsuario === "MTRS" ? window.location.href="./dashboard" : window.location.href="./dashboard";
-
-            }, 1500);    }      
+            respuesta.data.tipoUsuario === "ALUM" ? window.location.href = "./dashboard-alumno" : window.location.href="./dashboard";
         } catch (error) {
             //console.log(error);
             dispatch( comenzarInicioSesionError() );

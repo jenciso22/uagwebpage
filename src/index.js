@@ -4,11 +4,19 @@ import App from './App';
 import Routes from './Routes'
 
 
+// ReactDOM.render(
+//   <React.StrictMode>
+//     <App />
+//     <Routes />
+//   </React.StrictMode>,
+//   document.getElementById('root')
+// );
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-    <Routes />
-  </React.StrictMode>,
-  document.getElementById('root')
+  <>
+   <App />
+   <Routes />
+  </>,
+ document.getElementById('root')
 );
 

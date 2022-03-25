@@ -165,6 +165,7 @@ function Tablevacantes() {
 
         useEffect(() => {
             peticionGet();
+            //eslint-disable-next-line
         }, []);
 
 

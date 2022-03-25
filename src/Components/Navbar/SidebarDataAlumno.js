@@ -5,8 +5,6 @@ import * as BsIcons from "react-icons/bs";
 
 
 export const SidebarDataAlumno = [
-
-
     {
         title: 'Mi Perfil',
         path: '/perfil-alumno',

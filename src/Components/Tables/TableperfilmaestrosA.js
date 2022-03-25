@@ -1,50 +1,26 @@
-import React, {useState, useEffect} from 'react';
-import MaterialTable from 'material-table';
-import axios from 'axios';
+import React, { useState } from 'react';
+import MaterialTable from '@material-table/core';
 import './Tablemisproyectos.css';
 import { red } from '@material-ui/core/colors';
 import ClipLoader from "react-spinners/ClipLoader";
+import { useSelector } from "react-redux";
 
+const TableperfilmaestrosA = () => {
 
-const columns=[
-    {title: 'Alumno', field: 'name'},
-    {title:'Descripcion', field: 'username'},
-    {title: 'Areas de Interes', field: 'phone'},
-    {title:'Email', field: 'email'},
-    {title: 'contacto', field: 'website'}
-];
+    //Consultado state usuarios para traer maestros
+    const UsuariosMtrs = useSelector( state => state.usuarios.maestros );
+    //Estructura tabla
+    const columns=[
+        {title: 'Profesor', field: 'nombre'},
+        {title:'Apellido', field: 'apellido'},
+        {title: 'Telefono', field: 'telefono'},
+        {title:'Correo', field: 'correo'},
+        {title: 'Linkedin', field: 'acercaDeMi'}
+    ];
+    //State loading para cargar la tabla
+    const [loading, setLoading] = useState(false);
 
-
-
-const baseUrl="http://jsonplaceholder.typicode.com/users";
-
-
-function TableperfilmaestrosA () {
-
-    const [loading, setLoading] = useState(true);
-    const [data, setData] = useState([]);
-
-    const peticionGet = async()=>{
-        await axios.get(baseUrl)
-        .then(response=>{
-            setLoading(false);
-            setData(response.data);
-        }).catch(error=>{
-            setLoading(false);
-            console.log(error);
-          })
-    }
-
-
-
-
-        useEffect(() => {
-            peticionGet();
-        }, []);
-
-
-
-
+    setLoading(false);
 
     return (
         <>
@@ -60,7 +36,7 @@ function TableperfilmaestrosA () {
             
             <MaterialTable
                 columns={columns}
-                data={data}
+                data={UsuariosMtrs.result}
                 title= 'Perfiles Maestros'
 
                 options={{
@@ -95,6 +71,5 @@ function TableperfilmaestrosA () {
 
     )
 }
-
+ 
 export default TableperfilmaestrosA;
-

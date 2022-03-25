@@ -1,15 +1,13 @@
-
 import './Footer.css';
 import React from 'react';
 
-function Footer () {
 
-  return (
+const Footer = () => {
+  return ( 
     <section className="footer">
 
-    </section>
-  )
-
+    </section> 
+  );
 }
-
+ 
 export default Footer;

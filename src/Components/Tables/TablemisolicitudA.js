@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import MaterialTable from 'material-table';
+import MaterialTable from '@material-table/core';
 import axios from 'axios';
 // import { Modal, Button } from '@material-ui/core';
 // import { makeStyles } from '@material-ui/core';
@@ -189,6 +189,7 @@ function TablemisolicitudA () {
 
         useEffect(() => {
             peticionGet();
+            //eslint-disable-next-line
         }, []);
 
 

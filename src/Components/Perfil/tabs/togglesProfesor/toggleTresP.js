@@ -8,17 +8,18 @@ const ToggleTresP = ( props ) => {
       apellido: "",
     });
   
-    const handleInputChange = (event) => {
-      // console.log(event.target.name)
-      // console.log(event.target.value)
-      setDatos({
-        ...datos,
-        [event.target.name]: event.target.value,
-      });
-    };
+    // const handleInputChange = (event) => {
+    //   // console.log(event.target.name)
+    //   // console.log(event.target.value)
+    //   setDatos({
+    //     ...datos,
+    //     [event.target.name]: event.target.value,
+    //   });
+    // };
   
     const enviarDatos = (event) => {
       event.preventDefault();
+      setDatos({ nombre: "", apellido: ""});
       console.log("enviando datos..." + datos.nombre + " " + datos.apellido);
     };
 

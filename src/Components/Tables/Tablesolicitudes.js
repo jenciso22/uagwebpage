@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react';
-import MaterialTable from 'material-table';
-import axios from 'axios';
+import React, {useState } from 'react';
+import MaterialTable from '@material-table/core';
+import { useSelector } from "react-redux";
 import { Modal, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 import './Tablemisproyectos.css';
@@ -8,20 +8,6 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { red } from '@material-ui/core/colors';
 import ClipLoader from "react-spinners/ClipLoader";
-
-
-const columns=[
-    {title: 'Alumno', field: 'alumno'},
-    {title:'Nombre del Proyecto', field: 'nombre_proyecto'},
-    {title:'Vacante Solicitada', field: 'vacante_solicitada'},
-    {title: 'Cuatrimestre', field: 'cuatrimestre'},
-    {title: 'Estatus', field: 'estatus'}
-];
-
-
-
-const baseUrl="http://localhost:3001/solicitudes";
-
 const useStyles = makeStyles((theme)=>({
 
     modal:{
@@ -48,183 +34,142 @@ const useStyles = makeStyles((theme)=>({
     
     }));
 
-function Tablesolicitudes() {
-    const styles = useStyles();
-    const [loading, setLoading] = useState(true);
-    const [data, setData] = useState([]);
-    const [modalEliminar, setModalEliminar]= useState(false);
-    const [modalAceptar, setModalAceptar]= useState(false);
-    const [proyectoSeleccionado, setProyectoSeleccionado]= useState({
-        id: "",
-        alumno: "",
-        nombre_proyecto: "",
-        vacante_solicitada: "",
-        cuatrimestre: "",
-        estatusOne: "",
-        estatus:"",
-        estatusDenegado:""
-    })
-    
 
-    const peticionGet = async()=>{
-        await axios.get(baseUrl)
-        .then(response=>{
-            setLoading(false);
-            setData(response.data);
-        }).catch(error=>{
-            setLoading(false);
-            console.log(error);
-          })
-    }
+const Tablesolicitudes = () => {
+  //Estructura tabla
+  const columns=[
+    {title: 'Alumno', field: 'usuario'},
+    {title:'Nombre del Proyecto', field: 'nombre'},
+    {title:'Vacante Solicitada', field: 'vacante'},
+    {title: 'Cuatrimestre', field: 'cuatrimestre'},
+    {title: 'Estatus', field: 'estado'}
+  ];
+  //Variable estilos
+  const styles = useStyles();
+  //Consulta state redux solicitudes
+  const solicitudesMtrs = useSelector( state => state.solicitudes.solicitudesMtrs );
+  //usetate para loading 
+  const [loading, setLoading] = useState(false);
+  //Variables para abrir los modales 
+  const [modalEliminar, setModalEliminar]= useState(false);
+  const [modalAceptar, setModalAceptar]= useState(false);
+  
+  // const [data, setData] = useState([]);
+  const [proyectoSeleccionado, setProyectoSeleccionado]= useState({
+      idUsuario: "",
+      usuario: "",
+      nombre: "",
+      vacante: "",
+      cuatrimestre: "",
+      estado: "",
+      jorge: ""
+  })
 
-      const peticionPut=(accept)=>{
-         axios.put(baseUrl+"/"+proyectoSeleccionado.id, proyectoSeleccionado)
-        .then(response=>{
-          // eslint-disable-next-line array-callback-return
-          console.log(proyectoSeleccionado, data);
-          const currentRow = data.find(el=>el.id===proyectoSeleccionado.id)
-          const oldData = data.find(el=>el.id!==proyectoSeleccionado.id)
-          if(accept){
-            currentRow.estatus="Aceptado";
-              abrirCerrarModalAceptar();
-          }else{
-              currentRow.estatus="Denegado";
-              abrirCerrarModalEliminar();
-          }
-          setData([
-              ...oldData,currentRow
-          ]);
-       
-
-        }).catch(error=>{
-          console.log(error);
-        })
-      }
-
-      const seleccionarProyecto =(proyecto, caso)=>{
-        setProyectoSeleccionado(proyecto);
-        (caso==="Aceptar")?abrirCerrarModalAceptar()
-        :
-        abrirCerrarModalEliminar()
-      }
-    
-        const abrirCerrarModalEliminar=()=>{
-            setModalEliminar(!modalEliminar);
-          }
-          const abrirCerrarModalAceptar=()=>{
-            setModalAceptar(!modalAceptar);
-          }
-
-        useEffect(() => {
-            peticionGet();
-        }, []);
-
-
-
-      const bodyEliminar=(
-        <div className={styles.modal}>
-          <p>Estás seguro que deseas DENEGAR esta solicitud de <b>{proyectoSeleccionado && proyectoSeleccionado.alumno}</b>? </p>
-          <div align="right">
-            <Button color="secondary" onClick={()=>peticionPut(false)}>Sí</Button>
-            <Button onClick={()=>abrirCerrarModalEliminar()}>No</Button>
-    
-          </div>
-    
-        </div>
-      )
-
-      const bodyAceptar=(
-        <div className={styles.modal}>
-          <p>Estás seguro que deseas ACEPTAR esta solicitud de <b>{proyectoSeleccionado && proyectoSeleccionado.alumno}</b>? </p>
-          <div align="right">
-            <Button color="secondary" onClick={()=>peticionPut(true)}>Sí</Button>
-            <Button onClick={()=>abrirCerrarModalAceptar()}>No</Button>
-    
-          </div>
-    
-        </div>
-      )
-    
-
-
-    return (
-
-      <>
-      {loading?
-      
+  const peticionPut=()=>{
+    console.log("fgf");
+    setLoading(false);
+     //console.log(proyectoSeleccionado);
+  }
+  const peticionEliminar = () => {
+    console.log(proyectoSeleccionado);
+  }
+  
+  const seleccionarProyecto =(proyecto, caso)=>{
+      setProyectoSeleccionado(proyecto);
+      (caso==="Aceptar") ? setModalAceptar(!modalAceptar) : setModalEliminar(!modalEliminar)
+  }
+  
+  return (
+  
+    <>
+    { loading ?
       <div className='spinner-container'>
-      <ClipLoader color={red}  loading={loading} size={40} />
+          <ClipLoader color={red}  loading={loading} size={40} />
       </div>
-      
-      : 
-      <div>
-            <div className='tableSolicitudes'>
-            <br />
-            <br />
-            
-            <MaterialTable
-                columns={columns}
-                data={data}
-                title= 'Solicitudes de Proyectos'
-
-                actions={[
-                    {
-                        icon: CheckCircleIcon,
-                        tooltip: 'Aceptar',
-                        onClick: (event, rowData)=> seleccionarProyecto(rowData,"Aceptar")
-                    },
-                    {
-                        icon: HighlightOffIcon,
-                        tooltip: 'Denegar',
-                        onClick: (event, rowData)=> seleccionarProyecto(rowData, "Eliminar")
-
-                    }
-
-
-                ]}
-                options={{
-                    actionsColumnIndex: -1,
-                    rowStyle:{
-                        backgroundColor: '#EEE'
-                    },
-                    headerStyle: {
-                        backgroundColor: '#373A3C',
-                        color: '#FFF'
-                    },
-                    searchFieldStyle: {
-                        backgroundColor: '#E373A3C',
-                    },
-                    Button: {
-                        backgroundColor: '#000'
-                    }
-                    
-                    
-                }}
-    
-                localization={{
-                    header:{
-                        actions:"Aceptar - Denegar"
-                    }
-                }}
-            />
-
-                <Modal
+    : 
+    <div>
+          <div className='tableSolicitudes'>
+          <br />
+          <br />
+          
+          <MaterialTable
+              columns={columns}
+              data={solicitudesMtrs.result}
+              title= 'Solicitudes de Proyectos'
+  
+              actions={[
+                  {
+                      icon: CheckCircleIcon,
+                      tooltip: 'Aceptar',
+                      onClick: (event, rowData)=> seleccionarProyecto(rowData,"Aceptar")
+                  },
+                  {
+                      icon: HighlightOffIcon,
+                      tooltip: 'Denegar',
+                      onClick: (event, rowData)=> seleccionarProyecto(rowData, "Eliminar")
+  
+                  }
+  
+  
+              ]}
+              options={{
+                  actionsColumnIndex: -1,
+                  rowStyle:{
+                      backgroundColor: '#EEE'
+                  },
+                  headerStyle: {
+                      backgroundColor: '#373A3C',
+                      color: '#FFF'
+                  },
+                  searchFieldStyle: {
+                      backgroundColor: '#E373A3C',
+                  },
+                  Button: {
+                      backgroundColor: '#000'
+                  }
+                  
+                  
+              }}
+  
+              localization={{
+                  header:{
+                      actions:"Aceptar - Denegar"
+                  }
+              }}
+          />
+  
+          <Modal
             open={modalEliminar}
-            onClose={abrirCerrarModalEliminar}>
-            {bodyEliminar}
-            </Modal>
-
-            <Modal
-            open={modalAceptar}
-            onClose={abrirCerrarModalAceptar}>
-            {bodyAceptar}
-            </Modal>
-        </div>
-      </div>}
-      </>
-
-    )
+            onClose={() => setModalEliminar(!modalEliminar)}>
+                <div className={styles.modal}>
+                    <p>Estás seguro que deseas DENEGAR esta solicitud de <b>{proyectoSeleccionado && proyectoSeleccionado.alumno}</b>? </p>
+                    <div align="right">
+                      <Button color="secondary" onClick={ ()=> peticionPut() }>Sí</Button>
+                      <Button onClick={() => setModalEliminar(!modalEliminar)}>No</Button>
+              
+                    </div>
+                </div>
+          </Modal>
+  
+          <Modal
+              open={modalAceptar}
+              onClose={() => setModalAceptar(!modalAceptar)}>
+                <div className={styles.modal}>
+                  <p>Estás seguro que deseas ACEPTAR esta solicitud de <b>{proyectoSeleccionado && proyectoSeleccionado.alumno}</b>? </p>
+                  <div align="right">
+                    <Button color="secondary" onClick={ () => peticionEliminar() }>Sí</Button>
+                    <Button onClick={() => setModalAceptar(!modalAceptar)}>No</Button>
+            
+                  </div>
+            
+                </div>
+          </Modal>
+      </div>
+    </div>}
+    </>
+  
+  )
+  
 }
-
+ 
 export default Tablesolicitudes;
-

@@ -1,12 +1,23 @@
-import React from 'react';
-import NavbarAlumno from '../Components/Navbar/NavbarAlumno';
+import React, { useEffect } from 'react';
+import NavbarMaestro from '../Components/Navbar/NavbarMaestro';
 import Footer from '../Components/Footer/Footer';
 import Tablemisproyectos from '../Components/Tables/Tablemisproyectos';
+import { useDispatch } from "react-redux";
+import { obtenerProyectosMTRS  } from '../actions/proyectosActions.js';
 
-function Misproyectos() {
+const Misproyectos = () => {
+
+    const dispatch = useDispatch();
+    
+    useEffect(async () => {
+        const cargaProyectosMtrs = datos => dispatch(obtenerProyectosMTRS());
+        await cargaProyectosMtrs();
+        //eslint-disable-next-line
+    }, []);
+
     return (
         <>
-            <NavbarAlumno/>
+            <NavbarMaestro/> 
                 <div className='tablemisproyectos dashboard-container'>
                     <Tablemisproyectos />
                 </div>
@@ -14,5 +25,5 @@ function Misproyectos() {
         </>
     )
 }
-
-export default Misproyectos
+ 
+export default Misproyectos;

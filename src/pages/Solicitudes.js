@@ -1,9 +1,20 @@
-import React from 'react'
-import NavbarAlumno from '../Components/Navbar/NavbarAlumno'
-import Footer from '../Components/Footer/Footer'
-import Tablesolicitudes from '../Components/Tables/Tablesolicitudes'
+import React, { useEffect } from 'react';
+import NavbarAlumno from '../Components/Navbar/NavbarAlumno';
+import Footer from '../Components/Footer/Footer';
+import Tablesolicitudes from '../Components/Tables/Tablesolicitudes';
+import { useDispatch } from "react-redux";
+import { obtenerSolicitudesMtrs } from "../actions/solicitudesActions"; 
 
-function Solicitudes() {
+const Solicitudes = () => {
+
+    const dispatch = useDispatch();
+
+    useEffect(async () => {
+        const cargaSolicitudesMaestros = datos => dispatch(obtenerSolicitudesMtrs());
+        await cargaSolicitudesMaestros();
+        //eslint-disable-next-line
+    }, []);
+
     return (
         <>
             <NavbarAlumno/>
@@ -14,5 +25,5 @@ function Solicitudes() {
         </>
     )
 }
-
-export default Solicitudes
+ 
+export default Solicitudes;

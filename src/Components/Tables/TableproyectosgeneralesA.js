@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import MaterialTable from 'material-table';
+import MaterialTable from '@material-table/core';
 import axios from 'axios';
 import SendIcon from '@material-ui/icons/Send';
 import { Modal, Button} from '@material-ui/core';
@@ -129,6 +129,7 @@ function TableproyectosgeneralesA () {
 
         useEffect(() => {
             peticionGet();
+            //eslint-disable-next-line
         }, []);
 
 

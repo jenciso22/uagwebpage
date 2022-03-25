@@ -1,33 +1,14 @@
-import React, {useState, useEffect} from 'react';
-import MaterialTable from 'material-table';
-import axios from 'axios';
+import React, { useState } from 'react';
+import MaterialTable from '@material-table/core';
 import { Modal, Button, TextField,} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 import './Tablemisproyectos.css';
 import { red } from '@material-ui/core/colors';
 import ClipLoader from "react-spinners/ClipLoader";
-
-
-
-
-
-const columns=[
-    {title: 'Nombre de Proyecto', field: 'nombre_proyecto'},
-    {title:'Descripcion', field: 'descripcion'},
-    {title:'Area de Investigacion', field: 'area'},
-    {title: 'Vacantes', field: 'vacante'},
-    {title: 'Fecha de Entrega', field: 'fecha_entrega'}
-];
-
-const openInNewTab = (url) => {
-  const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
-  if (newWindow) newWindow.opener = null
-}
-
-const baseUrl="http://localhost:3001/proyectos";
+import { useDispatch, useSelector } from "react-redux";
+import { actualizarProyectoMTRS  } from '../../actions/proyectosActions';
 
 const useStyles = makeStyles((theme)=>({
-
     modal:{
         position: 'absolute',
         width: 1000,
@@ -68,259 +49,218 @@ const useStyles = makeStyles((theme)=>({
     
     }));
 
-function Tablemisproyectos() {
-    const styles = useStyles();
-    // const [selectedRow, setSelectedRow] = useState(null);
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [modalInsertar, setModalInsertar] = useState(false);
-    const [modalEditar, setModalEditar]= useState(false);
-    const [modalEliminar, setModalEliminar]= useState(false);
-    const [proyectoSeleccionado, setProyectoSeleccionado]= useState({
-        id: "",
-        name: "",
+const Tablemisproyectos = () => {
+      const dispatch = useDispatch();
+      //Datos para llenar la tabla
+      const columns=[
+        {title: 'Nombre de Proyecto', field: 'nombre'},
+        {title:'Descripcion', field: 'descripcion'},
+        {title:'Area de Investigacion', field: 'areaInvestigacion'},
+        {title: 'Vacantes', field: 'vacante'},
+        {title: 'Fecha de Entrega', field: 'fechaFinal'}
+      ];
+      //Consultando state de redux
+      const proyectosMtrs = useSelector( state => state.proyectos.proyectosMtrs );
+      //State que abren o cierran los modales
+      const [modalEditar, setModalEditar]= useState(false);
+      const [modalEliminar, setModalEliminar]= useState(false);
+      //Loading para cargar pagina
+      const [loading, setLoading] = useState(false);
+      //State principal para editar o eliminar
+      const [proyectoSeleccionado, setProyectoSeleccionado]= useState({
+        idUsuario: "",
+        nombre: "",
         descripcion: "",
-        area: "",
+        areaInvestigacion: "",
         vacante: "",
-        fecha_entrega: ""
-    })
-    
-    const handleChange=e=>{
-        const{name, value}=e.target;
-        setProyectoSeleccionado(prevState=>({
-            ...prevState,
+        fechaFinal: ""
+      });
+
+      const { nombre, descripcion, areaInvestigacion, vacante, fechaFinal } = proyectoSeleccionado;
+
+      const styles = useStyles();
+      
+      //Direcciona a la pagina o componente proyectoP
+      const openInNewTab = (url) => {
+        const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+        if (newWindow) newWindow.opener = null
+      }
+
+      const handleChange = e => {
+        setLoading(false);
+          const{name, value} = e.target;
+          setProyectoSeleccionado({
+            ...proyectoSeleccionado,
             [name]: value
-        }));
-        console.log(proyectoSeleccionado);
-    };
-
-
-    const peticionGet = async()=>{
-        await axios.get(baseUrl)
-        .then(response=>{
-            setLoading(false);
-            setData(response.data);
-        }).catch(error=>{
-            setLoading(false);
-            console.log(error);
-          })
-    }
-
-    const peticionPost=async()=>{
-        await axios.post(baseUrl, proyectoSeleccionado)
-        .then(response=>{
-          setData(data.concat(response.data));
-          abrirCerrarModalInsertar();
-        }).catch(error=>{
-          console.log(error);
-        })
-      }
-
-      const peticionPut=async()=>{
-        await axios.put(baseUrl+"/"+proyectoSeleccionado.id, proyectoSeleccionado)
-        .then(response=>{
-          var dataNueva= data;
-          // eslint-disable-next-line array-callback-return
-          dataNueva.map(nombre_proyecto=>{
-            if(nombre_proyecto.id===proyectoSeleccionado.id){
-              nombre_proyecto.nombre_proyecto=proyectoSeleccionado.nombre_proyecto;
-              nombre_proyecto.descripcion=proyectoSeleccionado.descripcion;
-              nombre_proyecto.area=proyectoSeleccionado.area;
-              nombre_proyecto.vacante=proyectoSeleccionado.vacante;
-              nombre_proyecto.fecha_entrega=proyectoSeleccionado.fecha_entrega;
-            }
           });
-          setData(dataNueva);
-          abrirCerrarModalEditar();
-        }).catch(error=>{
-          console.log(error);
-        })
-      }
+      };
+      
+      const peticionPut= async ()=>{
+        console.log("Hola put");
+        //Tener datos modificados
+        if( !Object.values(proyectoSeleccionado).every( item => item != "") ){
+          console.log("Tienes que llenar todos los campos");
+          return;
+        }
 
-
-      const peticionDelete=async()=>{
-        await axios.delete(baseUrl+"/"+proyectoSeleccionado.id)
-        .then(response=>{
-          setData(data.filter(artista=>artista.id!==proyectoSeleccionado.id));
-          abrirCerrarModalEliminar();
-        }).catch(error=>{
-          console.log(error);
-        })
+        //Consultar api
+        const cargaProyectosMtrs = (datos) => dispatch(actualizarProyectoMTRS(datos));
+        await cargaProyectosMtrs(proyectoSeleccionado);
+        // //Refrescar tabla
+        setModalEditar(false);
       }
       
-
-      const seleccionarProyecto =(proyecto, caso)=>{
-        setProyectoSeleccionado(proyecto);
-        (caso==="Editar")?abrirCerrarModalEditar()
-        :
-        abrirCerrarModalEliminar()
+      const peticionDelete=async()=>{
+          //Verificar que tengamos los datos para eliminar
+          //Realizar consulta a base de datos o back
+          //Refrescar tabla 
+          //Enviar datos al action para eliminar esto
+          console.log(proyectoSeleccionado);
       }
-    
-
-        const abrirCerrarModalInsertar=()=>{
-            setModalInsertar(!modalInsertar);
-        }
-        const abrirCerrarModalEditar=()=>{
-            setModalEditar(!modalEditar);
-        }
-
-        const abrirCerrarModalEliminar=()=>{
-            setModalEliminar(!modalEliminar);
-          }
-
-        useEffect(() => {
-            peticionGet();
-        }, []);
-
-
-    
-    const bodyInsertar=(
-
-        <div className={styles.modal}>
-            <h3>Agregar Nuevo Proyecto</h3>
-            <br />
-            <TextField className={styles.inputMaterial} label='Nombre Proyecto' name='nombre_proyecto' onChange={handleChange}/>
-            <br />
-            <TextField className={styles.inputMaterial} label='Descripcion' name='descripcion' onChange={handleChange}/>
-            <br />
-            <TextField className={styles.inputMaterial} label='Area' name='area' onChange={handleChange}/>
-            <br />
-            <TextField className={styles.inputMaterial} label='Vacante' name='vacante' onChange={handleChange}/>
-            <br />
-            <TextField className={styles.inputMaterial} label='Fecha de Entrega' name='fecha_entrega' onChange={handleChange}/>
-            <br /><br />
-            <div align='right'>
-                <Button color='primary' onClick={()=>peticionPost()}>Insertar</Button>
-                <Button onClick={()=>abrirCerrarModalInsertar()}> Cancelar </Button>
-            </div>
-        </div>
-    )
-
-
-    
-    const bodyEditar=(
-        <div className={styles.modal}>
-          <h3>Editar Proyecto</h3>
-          <br />
-          <TextField className={styles.inputMaterial} label="Nombre Proyecto" name="nombre_proyecto" onChange={handleChange} value={proyectoSeleccionado&&proyectoSeleccionado.nombre_proyecto}/>
-          <br />
-          <TextField className={styles.inputMaterial} label="Descripcion" name="descripcion" onChange={handleChange} value={proyectoSeleccionado&&proyectoSeleccionado.descripcion}/>          
-    <br />
-    <TextField className={styles.inputMaterial} label="Area" name="area" onChange={handleChange} value={proyectoSeleccionado&&proyectoSeleccionado.area}/>
-          <br />
-    <TextField className={styles.inputMaterial} label="Vacante" name="vacante" onChange={handleChange} value={proyectoSeleccionado&&proyectoSeleccionado.vacante}/>
-    <br />
-    <TextField className={styles.inputMaterial} label="Fecha de Entrega" name="fecha_entrega" onChange={handleChange} value={proyectoSeleccionado&&proyectoSeleccionado.fecha_entrega}/>
-          <br /><br />
-          <div align="right">
-            <Button color="primary" onClick={()=>peticionPut()}>Editar</Button>
-            <Button onClick={()=>abrirCerrarModalEditar()}>Cancelar</Button>
-          </div>
-        </div>
-      )
-
-      const bodyEliminar=(
-        <div className={styles.modalCancelar}>
-          <p>Estás seguro que deseas eliminar al artista <b>{proyectoSeleccionado && proyectoSeleccionado.name}</b>? </p>
-          <div align="right">
-            <Button color="secondary" onClick={()=>peticionDelete()}>Sí</Button>
-            <Button onClick={()=>abrirCerrarModalEliminar()}>No</Button>
-    
-          </div>
-    
-        </div>
-      )
-    
-
-
-    return (
-
-      <>
-        {loading?
-
-        <div className='spinner-container'>
-        <ClipLoader color={red}  loading={loading} size={40} />
-        </div>
         
-        : 
-        <div>            
-          <div className='tableMisProyectos'>
-            <br />
-            <div className='container-insertar'>
-            {/* <button className='btn-insertar' onClick={()=>abrirCerrarModalInsertar()}>Insertar Proyecto</button> */}
-            <button className='btn-insertar' onClick={()=>openInNewTab('http://localhost:3000/proyectop')}>Insertar Proyecto</button> 
+      
+      const seleccionarProyecto =(proyecto, caso)=>{
+          setProyectoSeleccionado(proyecto);
+          (caso==="Editar") ? setModalEditar(!modalEditar) : setModalEliminar(!modalEliminar);
+      }
+      
+      return (
+      
+        <>
+          { 
+          
+          loading ?
+            <div className='spinner-container'>
+              <ClipLoader color={red}  loading={loading} size={40} />
             </div>
-            <br /><br />
-            
-            <MaterialTable
-                columns={columns}
-                data={data}
-                title= 'Mis Proyectos'
+          : 
+              <div>            
+                <div className='tableMisProyectos'>
+                  <br />
+                  <div className='container-insertar'>
+                  <button className='btn-insertar' onClick={ () => openInNewTab('http://localhost:3000/proyectop') }>Insertar Proyecto</button> 
+                  </div>
+                  <br /><br />
+                  
+                  <MaterialTable
+                      columns={columns}
+                      data={proyectosMtrs.result}
+                      title= 'Mis Proyectos'
+          
+                      actions={[
+                          {
+                              icon: 'edit',
+                              tooltip: 'Editar Proyecto',
+                              onClick: (event, rowData) => seleccionarProyecto(rowData,"Editar"),
+                          },
+                          {
+                              icon: 'delete',
+                              tooltip: 'Eliminar Proyecto',
+                              onClick: (event, rowData)=> seleccionarProyecto(rowData, "Eliminar")
+                          }
+          
+          
+                      ]}
+                      options={{
+                          actionsColumnIndex: -1,
+                          rowStyle:{
+                              backgroundColor: '#EEE'
+                          },
+                          headerStyle: {
+                              backgroundColor: '#373A3C',
+                              color: '#FFF'
+                          },
+                          searchFieldStyle: {
+                              backgroundColor: '#E373A3C',
+                          },
+                          Button: {
+                              backgroundColor: '#000'
+                          }
+                          
+                          
+                      }}
+          
+                      localization={{
+                          header:{
+                              actions:"Acciones"
+                          }
+                      }}
+                  />
 
-                actions={[
-                    {
-                        icon: 'edit',
-                        tooltip: 'Editar Proyecto',
-                        onClick: (event, rowData)=> seleccionarProyecto(rowData,"Editar")
-                    },
-                    {
-                        icon: 'delete',
-                        tooltip: 'Eliminar Proyecto',
-                        onClick: (event, rowData)=> seleccionarProyecto(rowData, "Eliminar")
+                  <Modal
+                    open={modalEditar}
+                    onClose={() => setModalEditar(!modalEditar)}>
+                      <div className={styles.modal}>
+                          <h3>Editar Proyecto</h3>
+                          <br />
+                              <TextField 
+                                className={styles.inputMaterial} 
+                                label="Nombre Proyecto" 
+                                name="proyecto" 
+                                onChange={handleChange} 
+                                value={nombre}
+                              />
+                          <br />
+                              <TextField 
+                                className={styles.inputMaterial} 
+                                label="Descripcion" 
+                                name="descripcion" 
+                                onChange={handleChange} 
+                                value={descripcion}
+                              />          
+                          <br />
+                              <TextField 
+                                className={styles.inputMaterial} 
+                                label="Area" 
+                                name="areaInvestigacion" 
+                                onChange={handleChange} 
+                                value={areaInvestigacion}
+                              />
+                          <br />
+                              <TextField 
+                                className={styles.inputMaterial} 
+                                label="Vacante" 
+                                name="vacante" 
+                                onChange={handleChange} 
+                                value={vacante}
+                              />
+                          <br />
+                              <TextField 
+                                className={styles.inputMaterial} 
+                                label="Fecha de Entrega" 
+                                name="fechaFinal" 
+                                onChange={handleChange} 
+                                value={fechaFinal}
+                              />
+                          <br />
+                          <br />
+                          <div align="right">
+                            <Button color="secondary" onClick={ () => peticionPut() }>Guardar</Button>
+                            <Button onClick={ () => setModalEditar(!modalEditar) }>Cancelar</Button>
+                          </div>
+                      </div>
+                  </Modal>
+      
+                  <Modal
+                    open={modalEliminar}
+                    onClose={() => setModalEliminar(!modalEliminar)}>
+                       <div className={styles.modalCancelar}>
+                          <p>
+                            Estás seguro que deseas eliminar el proyecto  
+                          </p>
+                          <div align="right">
+                            <Button color="secondary" onClick={()=>peticionDelete()}>Sí</Button>
+                            <Button onClick={ () => setModalEliminar(!modalEliminar) }>No</Button>
+                          </div>
+                      </div>
+                  </Modal>
 
-                    }
-
-
-                ]}
-                options={{
-                    actionsColumnIndex: -1,
-                    rowStyle:{
-                        backgroundColor: '#EEE'
-                    },
-                    headerStyle: {
-                        backgroundColor: '#373A3C',
-                        color: '#FFF'
-                    },
-                    searchFieldStyle: {
-                        backgroundColor: '#E373A3C',
-                    },
-                    Button: {
-                        backgroundColor: '#000'
-                    }
-                    
-                    
-                }}
-    
-                localization={{
-                    header:{
-                        actions:"Acciones"
-                    }
-                }}
-            />
-            <Modal
-            open={modalInsertar}
-            onClose={abrirCerrarModalInsertar}>
-            {bodyInsertar}
-            </Modal>
-
-
-                <Modal
-            open={modalEditar}
-            onClose={abrirCerrarModalEditar}>
-            {bodyEditar}
-            </Modal>
-
-                <Modal
-            open={modalEliminar}
-            onClose={abrirCerrarModalEliminar}>
-            {bodyEliminar}
-            </Modal>
-        </div></div>}
-
-      </>
-
-    )
+                </div>
+          </div>
+          }
+        </>
+      );
 }
-
+ 
 export default Tablemisproyectos;
 

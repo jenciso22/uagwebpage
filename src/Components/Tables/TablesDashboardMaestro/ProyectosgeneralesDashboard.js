@@ -1,57 +1,27 @@
-import React, {useState, useEffect} from 'react';
-import MaterialTable from 'material-table';
-import axios from 'axios';
-// import { useSelector, useDispatch } from "react-redux";
-// import { obtenerProyectosGenerales } from "../actions/proyectosgenerales";
-// import { Modal, Button, TextField } from '@material-ui/core';
-// import { makeStyles } from '@material-ui/core';
+import React from 'react';
+import MaterialTable from '@material-table/core';
+import { useSelector } from "react-redux";
 import '../Tablemisproyectos.css';
 
-
-
 const columns=[
-    {title: 'Nombre de Proyecto', field: 'nombre_proyecto'},
+    {title: 'Nombre de Proyecto', field: 'nombre'},
     {title:'Descripcion', field: 'descripcion'},
-    {title:'Area de Investigacion', field: 'area'},
-    {title: 'Asesor', field: 'asesor'},
+    {title:'Area de Investigacion', field: 'areaInvestigacion'},
+    {title: 'Asesor', field: 'usuario'},
     {title: 'Vacante', field: 'vacante'},
-    {title: 'Fecha de Entrega', field: 'fecha_entrega'},
+    {title: 'Fecha de Entrega', field: 'fechaFinal'},
 ];
 
+const ProyectosgeneralesDashboard = () => {
 
+    const proyectosG = useSelector( state => state.proyectos.proyectosG );
 
-const baseUrl="http://localhost:3001/proyectos";
-
-
-function ProyectosgeneralesDashboard () {
-
-    const [data, setData] = useState([]);
-
-    const peticionGet = async()=>{
-        await axios.get(baseUrl)
-        .then(response=>{
-            setData(response.data);
-        }).catch(error=>{
-            console.log(error);
-          })
-    }
-
-
-        useEffect(() => {
-            peticionGet();
-        }, []);
-
-
-
-
-    return (
+    return ( 
         <div className='tableProyectosGenerales'>
-            
             <MaterialTable
                 columns={columns}
-                data={data}
+                data={proyectosG.result}
                 title= 'Proyectos Generales'
-
 
                 options={{
                     actionsColumnIndex: -1,
@@ -68,15 +38,10 @@ function ProyectosgeneralesDashboard () {
                     Button: {
                         backgroundColor: '#000'
                     }
-                    
-                    
                 }}
-    
-
             />
         </div>
-    )
+     );
 }
-
+ 
 export default ProyectosgeneralesDashboard;
-

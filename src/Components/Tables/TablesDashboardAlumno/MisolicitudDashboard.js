@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import MaterialTable from 'material-table';
+import MaterialTable from '@material-table/core';
 import axios from 'axios';
 import '../Tablemisproyectos.css';
 
@@ -31,6 +31,7 @@ function MisolicitudDashboard () {
 
         useEffect(() => {
             peticionGet();
+            //eslint-disable-next-line
         }, []);
 
 

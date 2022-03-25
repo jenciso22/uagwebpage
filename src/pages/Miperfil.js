@@ -1,12 +1,12 @@
 import React from 'react';
-import NavbarAlumno from '../Components/Navbar/NavbarAlumno';
+import NavbarMaestro from '../Components/Navbar/NavbarMaestro';
 import TabsProfesor  from "../Components/Perfil/TabsProfesor";
 import Footer from '../Components/Footer/Footer';
 
 function Miperfil() {
     return (
         <>
-            <NavbarAlumno/>
+            <NavbarMaestro/> 
                 <div className='miperfil dashboard-container'>
                     {/* <h1>Mi perfil</h1> */}
                 </div>

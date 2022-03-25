@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
-import Tablevacantes from '../Tables/Tablevacantes';
-
+// import Tablevacantes from '../Tables/Tablevacantes';
+// <Tablevacantes />
 
 const TogglePProfesor = (props) => {
 
   const [datos, setDatos] = useState({
+    idUsuario: "",
     nombre: "",
-    apellido: "",
+    descripcion: "",
+    areaInvestigacion: "",
+    vacante: "",
+    fechaInicio: "",
+    fechaFinal: ""
   });
+  const { nombre, descripcion, areaInvestigacion, vacante, fechaInicio, fechaFinal  } = datos;
 
   const enviarDatos = (event) => {
     event.preventDefault();
-    console.log("enviando datos..." + datos.nombre + " " + datos.apellido);
+    console.log(datos);
   };
 
   const handleInputChange = (event) => {
@@ -31,7 +37,8 @@ const TogglePProfesor = (props) => {
                             placeholder="Nombre del Proyecto"
                             className="form-control-proyect"
                             onChange={handleInputChange}
-                            name="nombre_Project"
+                            name="nombre"
+                            value={nombre}
                         />
                         </div>
                         <div className="col-md-3">
@@ -40,43 +47,61 @@ const TogglePProfesor = (props) => {
                             placeholder="Area de Investigacion"
                             className="form-control-proyect"
                             onChange={handleInputChange}
-                            name="area_investigacion"
+                            name="areaInvestigacion"
+                            value={areaInvestigacion}
                         />
                         </div>
                         <div className="col-md-3">
-                        <textarea className="textareap" name="descripcion_proyecto" rows="10" cols="50"> Descripcion del Proyecto </textarea>
+                          <textarea 
+                            className="textareap"
+                            placeholder="Agrega una descripcion del proyecto"
+                            onChange={handleInputChange} 
+                            name="descripcion"
+                            value={descripcion} 
+                            rows="10" cols="50"> 
+                            Descripcion del Proyecto 
+                          </textarea>
                         </div>
                         <div className="col-md-3">
-                        <textarea className="textareap" name="requerimientos" rows="10" cols="50"> Requerimientos Basicos </textarea>
+                          <textarea 
+                            className="textareap"
+                            onChange={handleInputChange}
+                            name="vacante" 
+                            value={vacante}
+                            rows="10" 
+                            cols="50"> 
+                            Vacante 
+                          </textarea>
                         </div>
 
                         <div className='date-field'>
-                        <div className="col-md-3">
-                        <input
-                            type="date"
-                            placeholder="Fecha Inicio"
-                            className="form-control-proyectdate"
-                            onChange={handleInputChange}
-                            name="fecha_incio"
-                        />
+                            <div className="col-md-3">
+                                <input
+                                    type="date"
+                                    placeholder="Fecha Inicio"
+                                    className="form-control-proyectdate"
+                                    onChange={handleInputChange}
+                                    name="fechaInicio"
+                                    value={fechaInicio}
+                                />
+                            </div>
+                            <div className="col-md-3">
+                                <input
+                                    type="date"
+                                    placeholder="Fecha Final"
+                                    className="form-control-proyectdate"
+                                    onChange={handleInputChange}
+                                    name="fechaFinal"
+                                    value={fechaFinal}
+                                />
+                            </div>
                         </div>
-                        <div className="col-md-3">
-                        <input
-                            type="date"
-                            placeholder="Fecha Final"
-                            className="form-control-proyectdate"
-                            onChange={handleInputChange}
-                            name="fecha_final"
-                        />
-                        </div>
-                        </div>
-                        <Tablevacantes />
                         <div className="btn-group">
                           <button type="submit" className="btntabs btn-primary-tabs">
                               Guardar
                           </button>
                           <button type="submit" className="btntabs btn-primary-tabs">
-                              Editar
+                              Cancelar
                           </button>
                         </div>
                     </form>

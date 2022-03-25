@@ -1,7 +1,11 @@
 import { 
     COMENZAR_DESCARGA_USUARIOS,
     DESCARGAR_USUARIOS_EXITO,
-    DESCARGA_USUARIOS_ERROR
+    DESCARGA_USUARIOS_ERROR,
+    //Obtener usuarios tipo maestro
+    COMENZAR_DESCARGA_MTRS,
+    DESCARGAR_MRTS_EXITO,
+    DESCARGAR_MTRS_ERROR
 } from "../types/index";
 
 const initialState = {
@@ -21,12 +25,19 @@ export default function( state = initialState, action){
                 error: false,
                 usuarios: action.payload
             }
+        case DESCARGAR_MRTS_EXITO:
+            return{
+                ...state,
+                maestros: action.payload
+            }
         case COMENZAR_DESCARGA_USUARIOS:
+        case COMENZAR_DESCARGA_MTRS:
             return{
                 ...state,
                 loading: action.payload
             }
         case DESCARGA_USUARIOS_ERROR:
+        case DESCARGAR_MTRS_ERROR:
             return{
                 ...state,
                 error: action.payload,

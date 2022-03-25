@@ -20,13 +20,14 @@ const Login = () => {
              window.location.href="./dashboard";
         }
         //console.log(autenticado);
+        //eslint-disable-next-line
     }, [autenticado])
 
     const handleChange = (e) => {
         setDatos({
             ...datos,
             [e.target.name] : e.target.value
-        })
+        });
     }
 
     const cargaAuth = datos => dispatch(iniciarSesionAuth(datos));
