@@ -1,13 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { editarUsuarioPerfil, obtenerUsuariosGlobal } from "../../../../actions/usuariosActions";
 
 const ToggleUnoP = ( props ) => {
-
+    const usuario = useSelector( state => state.usuarios.usuarioGlobal );
+    const dispatch = useDispatch();
     const [datos, setDatos] = useState({
       nombre: "",
       apellido: "",
+      direccion: "",
+      fNacimiento: "",
+      telefono: "",
+      correo: "",
+      acercaDeMi: "",
+      linkeidn: ""
     });
   
+    
+    useEffect(() => {
+      if( usuario.result ){
+        setDatos(usuario.result[0]);
+      }
+      //eslint-disable-next-line
+    }, [usuario]);
   
+    const editarUsuario = (id, datos) => dispatch(editarUsuarioPerfil(id, datos));
+    const usuarioGlobal = id => dispatch(obtenerUsuariosGlobal(id));
+
     const handleInputChange = (event) => {
       // console.log(event.target.name)
       // console.log(event.target.value)
@@ -17,11 +36,17 @@ const ToggleUnoP = ( props ) => {
       });
     };
   
-    const enviarDatos = (event) => {
+    const enviarDatos = async (event) => {
       event.preventDefault();
-      console.log("enviando datos..." + datos.nombre + " " + datos.apellido);
-    };
+      //Validar que campos nombre, apellido, correo, No esten vacios
+      if( datos.nombre.trim() === "" || datos.apellido.trim() === "" || datos.correo.trim() === "" ){
+          console.log("LLena los campos indicados");
+          return;
+      }
 
+      await editarUsuario(datos.idUsuario, datos);
+      await usuarioGlobal(datos.idUsuario);
+    };
     return(
         <div
             className={
@@ -38,25 +63,38 @@ const ToggleUnoP = ( props ) => {
                       className="form-control-normal"
                       onChange={handleInputChange}
                       name="nombre"
+                      value={datos.nombre}
                     />
                   </div>
                   <div className="col-md-3">
-                    <textarea className="textarea" name="acercademi" rows="10" cols="50">Acerca de mi</textarea>
-                    {/*<input
+                    <input
                       type="text"
-                      placeholder="Acerca de Mi"
-                      className="form-control-aboutme"
+                      placeholder="Apellidos"
+                      className="form-control-normal"
                       onChange={handleInputChange}
-                      name="acercademi"
-                    />*/}
+                      name="apellido"
+                      value={datos.apellido}
+                    />
+                  </div>
+                  <div className="col-md-3">
+                    <textarea 
+                      className="textarea" 
+                      value={datos.acercaDeMi}
+                      name="acercaDeMi"
+                      placeholder='Acerca de Mi'
+                      onChange={handleInputChange}
+                      rows="10" 
+                      cols="50">
+                        
+                    </textarea>
                   </div>
                   <div className="btn-group">
                     <button type="submit" className="btntabs btn-primary-tabs">
                       Guardar
                     </button>
-                    <button type="submit" className="btntabs btn-primary-tabs">
+                    {/* <button type="submit" className="btntabs btn-primary-tabs">
                       Editar
-                    </button>
+                    </button> */}
                   </div>
                 </form>  
         </div>

@@ -1,20 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from "react-redux";
+import { editarProfesionPerfil, obtenerUsuariosGlobal } from "../../../../actions/usuariosActions";
 
 const ToggleTres = (props) => {
+  const usuario = useSelector( state => state.usuarios.usuarioGlobal );
+  const dispatch = useDispatch();
+  const [datos, setDatos] = useState({
+    experienciaProfesional: "",
+    proyectosProfesionales: ""
+  });
 
-    const [datos, setDatos] = useState({
-        nombre: "",
-        apellido: "",
-      });
+  useEffect(() => {
+    if(usuario.result){
+      setDatos(usuario.result[0]);
+    }
+    //eslint-disable-next-line
+  }, [usuario]);
+
+  const editarUsuario = (id, datos) => dispatch(editarProfesionPerfil(id, datos));
+  const usuarioGlobal = id => dispatch(obtenerUsuariosGlobal(id));
+
     
-      const enviarDatos = (event) => {
-        event.preventDefault();
-        console.log("enviando datos..." + datos.nombre + " " + datos.apellido);
-    };
+  const enviarDatos = async (event) => {
+    event.preventDefault();
+    //No se valida informacion ya que se púeden enviar esos campos vacios
+    await editarUsuario(datos.idProfesion, datos);
+    await usuarioGlobal(datos.idUsuario);
+
+  };
     
     const handleInputChange = (event) => {
-          // console.log(event.target.name)
-          // console.log(event.target.value)
           setDatos({
             ...datos,
             [event.target.name]: event.target.value,
@@ -31,43 +46,34 @@ const ToggleTres = (props) => {
            
                 <form className="row-tabs" onSubmit={enviarDatos}>
                     <div className="col-md-3">
-                      <textarea className="textarea" name="experiencia" rows="10" cols="50" onChange={handleInputChange}>Experiencia Profesional</textarea>
-                      {/*<input
-                          type="text"
-                          placeholder="Experiencia Profesional"
-                          className="form-control-medium"
-                          onChange={handleInputChange}
-                          name="experienciaprofesional"
-                      />*/}
+                      <textarea 
+                         className="textarea" 
+                         name="experienciaProfesional" 
+                         placeholder='Experiencia profesional'
+                         rows="10" 
+                         cols="50" 
+                         onChange={handleInputChange}
+                         value={datos.experienciaProfesional}>
+                          
+                      </textarea>
                     </div>
                     <div className="col-md-3">
-                      <textarea className="textarea" name="Proyectos" rows="10" cols="50" onChange={handleInputChange}>Proyectos profesionales</textarea>
-                      {/*<input
-                          type="text"
-                          placeholder="Proyectos Profesionales"
-                          className="form-control-medium"
-                          onChange={handleInputChange}
-                          name="proyectosprofesionales"
-                      />*/}
+                      <textarea 
+                        className="textarea" 
+                        name="proyectosProfesionales" 
+                        placeholder='Proyecto profesional'
+                        rows="10" 
+                        cols="50" 
+                        onChange={handleInputChange}
+                        value={datos.proyectosProfesionales}>
+                      </textarea>
                     </div>
-                    <div className="col-md-3">
+                    {/* <div className="col-md-3">
                       <textarea className="textarea" name="habiidades" rows="10" cols="50" onChange={handleInputChange}>Habilidades</textarea>
-                      {/*
-                        <input
-                          type="text"
-                          placeholder="Habilidades"
-                          className="form-control-medium"
-                          onChange={handleInputChange}
-                          name="habilidades"
-                      />
-                      */}
-                    </div>
+                    </div> */}
                     <div className="btn-group">
                       <button type="submit" className="btntabs btn-primary-tabs">
                         Guardar
-                      </button>
-                      <button type="submit" className="btntabs btn-primary-tabs">
-                        Editar
                       </button>
                     </div>
                 </form>

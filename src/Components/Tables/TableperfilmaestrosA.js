@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import MaterialTable from '@material-table/core';
 import './Tablemisproyectos.css';
 import { red } from '@material-ui/core/colors';
@@ -15,12 +15,10 @@ const TableperfilmaestrosA = () => {
         {title:'Apellido', field: 'apellido'},
         {title: 'Telefono', field: 'telefono'},
         {title:'Correo', field: 'correo'},
-        {title: 'Linkedin', field: 'acercaDeMi'}
+        {title: 'Linkedin', field: 'linkeidn'}
     ];
     //State loading para cargar la tabla
-    const [loading, setLoading] = useState(false);
-
-    setLoading(false);
+    const loading = false;
 
     return (
         <>

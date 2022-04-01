@@ -11,7 +11,9 @@ const CambiosToggleProf = () => {
         <>
             <div className="bloc-tabs">
                 {arrayToggleProfesores.map( ( valor ) => (
-                    <button className={ toggleState === valor.valor ? valor.classs2 : valor.class } onClick={() => setToggleState( valor.valor )}>
+                    <button 
+                    className={ toggleState === valor.valor ? valor.classs2 : valor.class } 
+                    key={valor.valor} onClick={() => setToggleState( valor.valor )}>
                         {valor.text}
                     </button>
                 ))}

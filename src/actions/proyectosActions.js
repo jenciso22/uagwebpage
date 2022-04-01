@@ -53,11 +53,11 @@ const descargaProyectosGeneralesError = () => ({
 });
 
 //Obtener proyectos Maestros
-export function obtenerProyectosMTRS(){
+export function obtenerProyectosMTRS(id){
     return async (dispatch) => {
         dispatch( obtenerProyectosMaestros() );
         try {
-            const respuesta = await clienteAxios.get("/api/proyectos/mtrs/3");
+            const respuesta = await clienteAxios.get(`/api/proyectos/mtrs/${id}`);
             dispatch( obtenerProyectosMTRSExito(respuesta.data) );
         } catch (error) {
             //console.log(error);
@@ -82,15 +82,13 @@ const obtenerProyectosMTRSERROR = () => ({
 });
 
 //Agregar proyecto mtrs
-export function agregarProyectoMTRS(idProyecto, idUsuario){
+export function agregarProyectoMTRS(datos){
     return async (dispatch) => {
         dispatch( agregarProyectoMaestros() );
         try {
-            const respuesta = await clienteAxios.get(`/api/proyectos/${idProyecto}/${idUsuario}`);
-            console.log(respuesta);
+            const respuesta = await clienteAxios.post(`/api/proyectos`, datos);
             dispatch( agregarProyectoMTRSExito(respuesta.data) );
         } catch (error) {
-            //console.log(error);
             dispatch( agregarProyectoMTRSERROR() );
         }
     }
@@ -112,12 +110,11 @@ const agregarProyectoMTRSERROR = () => ({
 });
 
 //Eliminar Proyecto mtrs
-export function eliminarProyectoMTRS(idProyecto, idUsuario){
+export function eliminarProyectoMTRS(id, idUsuario){
     return async (dispatch) => {
         dispatch( eliminarProyectoMaestros() );
         try {
-            const respuesta = await clienteAxios.get(`/api/proyectos/${idProyecto}/${idUsuario}`);
-            console.log(respuesta);
+            const respuesta = await clienteAxios.delete(`/api/proyectos/${id}/${idUsuario}`);
             dispatch( eliminarProyectoMTRSExito(respuesta.data) );
         } catch (error) {
             //console.log(error);
@@ -147,11 +144,9 @@ export function actualizarProyectoMTRS(datos){
             dispatch( actualizarProyectoMaestros() );
             try {
 
-                const respuesta = await clienteAxios.put(`/api/proyectos/${datos.idProyecto}`, datos);
-                console.log(respuesta);
-                //dispatch( actualizarProyectoMTRSExito(respuesta.data) );
+                const respuesta = await clienteAxios.put(`/api/proyectos/${datos.idProyecto}`, datos)
+                dispatch( actualizarProyectoMTRSExito(respuesta.data) );
             } catch (error) {
-                console.log(error);
                 dispatch( actualizarProyectoMTRSERROR() );
             }
         }

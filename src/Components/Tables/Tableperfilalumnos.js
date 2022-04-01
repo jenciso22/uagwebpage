@@ -1,49 +1,20 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import MaterialTable from '@material-table/core';
-import axios from 'axios';
+import { useSelector } from "react-redux";
 import './Tablemisproyectos.css';
 import { red } from '@material-ui/core/colors';
 import ClipLoader from "react-spinners/ClipLoader";
 
-
-const columns=[
-    {title: 'Alumno', field: 'name'},
-    {title:'Descripcion', field: 'username'},
-    {title:'Cuatrimestre', field: 'email'},
-    {title: 'Areas de Interes', field: 'phone'},
-    {title: 'contacto', field: 'website'}
-];
-
-
-
-const baseUrl="http://jsonplaceholder.typicode.com/users";
-
-
-
-function Tableperfilalumnos() {
-
-    const [loading, setLoading] = useState(true);
-    const [data, setData] = useState([]);
-
-    const peticionGet = async()=>{
-        await axios.get(baseUrl)
-        .then(response=>{
-            setLoading(false);
-            setData(response.data);
-        }).catch(error=>{
-            console.log(error);
-            setLoading(false);
-          })
-    }
-
-
-
-        useEffect(() => {
-            peticionGet();
-            //eslint-disable-next-line
-        }, []);
-
-
+const Tableperfilalumnos = () => {
+    const loading = false;
+    const alumnos = useSelector( state => state.usuarios.alumnos );
+    const columns=[
+        {title: 'Alumno', field: 'nombre'},
+        {title:'Telefono', field: 'telefono'},
+        {title:'Correo', field: 'correo'},
+        {title: 'Tipo usuario', field: 'tipoUsuario'},
+        {title: 'Acerca De Mi', field: 'acercaDeMi'}
+    ];
     
     return (
         <>
@@ -59,9 +30,9 @@ function Tableperfilalumnos() {
         
             <MaterialTable
                 columns={columns}
-                data={data}
+                data={alumnos.result}
                 title= 'Perfiles Alumnos'
-
+    
                 options={{
                     actionsColumnIndex: -1,
                     rowStyle:{
@@ -90,9 +61,8 @@ function Tableperfilalumnos() {
         </div>
         </div>}
         </>
-
-    )
+    
+    );
 }
-
+ 
 export default Tableperfilalumnos;
-

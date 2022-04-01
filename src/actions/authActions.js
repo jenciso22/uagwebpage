@@ -1,7 +1,10 @@
 import { 
     COMENZAR_INICIO_LOGIN,
     INICIAR_SESION_EXITO,
-    INICIAR_SESION_ERROR
+    INICIAR_SESION_ERROR,
+    RENOVAR_SECCION_INICIADA,
+    RENOVAR_SECCION_EXITO,
+    RENOVAR_SECCION_ERROR
 } from "../types";
 import Cookies from 'universal-cookie';
 import clienteAxios from "../config/axios";
@@ -15,9 +18,9 @@ export function iniciarSesionAuth(datos){
         try {
             //Consulta para iniciar sesion
             const respuesta = await clienteAxios.post("/api/auth",  datos);
-            console.log(respuesta.data);
             dispatch( comenzarInicioSesionSuccess(respuesta.data) );
             cookies.set('token', respuesta.data.token, {path: "/"});
+            cookies.set('idUsuario', respuesta.data.idUsuario, {path: "/"});
             Swal.fire({
                 position: 'top-end',
                 icon: 'success',
@@ -46,5 +49,39 @@ const comenzarInicioSesionSuccess = (usuario) => ({
 
 const comenzarInicioSesionError = () => ({
     type: INICIAR_SESION_ERROR,
+    payload: true
+})
+
+//Renovar secicon del usuario si el token sirve
+
+export function renovarSesionAuth(token){
+    return async (dispatch) => {
+        dispatch( renovarInicioSesion() );
+        try {
+            //Consulta para iniciar sesion
+            const respuesta = await clienteAxios.get("/api/renew", {"headers": { "x-token": token }});
+            dispatch( renovarInicioSesionSuccess(respuesta.data) );
+            cookies.set('token', respuesta.data.token, {path: "/"});
+        } catch (error) {
+            //console.log(error);
+            dispatch( renovarInicioSesionError() );
+        }
+    }
+}
+
+
+
+const renovarInicioSesion = () => ({
+    type: RENOVAR_SECCION_INICIADA,
+    payload: true
+});
+
+const renovarInicioSesionSuccess = (usuario) => ({
+    type: RENOVAR_SECCION_EXITO,
+    payload: usuario
+})
+
+const renovarInicioSesionError = () => ({
+    type: RENOVAR_SECCION_ERROR,
     payload: true
 })

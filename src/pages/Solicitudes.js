@@ -1,23 +1,38 @@
 import React, { useEffect } from 'react';
-import NavbarAlumno from '../Components/Navbar/NavbarAlumno';
+import NavbarMaestro  from '../Components/Navbar/NavbarMaestro';
 import Footer from '../Components/Footer/Footer';
 import Tablesolicitudes from '../Components/Tables/Tablesolicitudes';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { obtenerSolicitudesMtrs } from "../actions/solicitudesActions"; 
+import { renovarSesionAuth } from "../actions/authActions";
+import Cookies from 'universal-cookie';
 
 const Solicitudes = () => {
 
     const dispatch = useDispatch();
+    const cookies = new Cookies();
+    const renovarToken = token => dispatch(renovarSesionAuth(token));
+    const cargaSolicitudesMaestros = id => dispatch(obtenerSolicitudesMtrs(id));
+    const usuario = useSelector( state => state.auth.usuario  );
 
-    useEffect(async () => {
-        const cargaSolicitudesMaestros = datos => dispatch(obtenerSolicitudesMtrs());
-        await cargaSolicitudesMaestros();
+    useEffect(() => {
+        if(cookies.get('token')){
+            const ejecutar = async () => {
+                await renovarToken(cookies.get("token"));
+                if( usuario ){
+                    await cargaSolicitudesMaestros(usuario.idUsuario);
+                }
+            }
+            ejecutar();
+        }else{
+            window.location.href="./login";
+        }
         //eslint-disable-next-line
     }, []);
 
     return (
         <>
-            <NavbarAlumno/>
+            <NavbarMaestro/> 
                 <div className='tablemisproyectos dashboard-container'>
                     <Tablesolicitudes />
                 </div>

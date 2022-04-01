@@ -1,6 +1,6 @@
 import React, {useState } from 'react';
 import MaterialTable from '@material-table/core';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Modal, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 import './Tablemisproyectos.css';
@@ -8,6 +8,8 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { red } from '@material-ui/core/colors';
 import ClipLoader from "react-spinners/ClipLoader";
+import {eliminarSolicitudesMtrs, actualizarSolicitudesMtrs, obtenerSolicitudesMtrs} from "../../actions/solicitudesActions";
+
 const useStyles = makeStyles((theme)=>({
 
     modal:{
@@ -36,6 +38,7 @@ const useStyles = makeStyles((theme)=>({
 
 
 const Tablesolicitudes = () => {
+  const dispatch = useDispatch();
   //Estructura tabla
   const columns=[
     {title: 'Alumno', field: 'usuario'},
@@ -48,12 +51,16 @@ const Tablesolicitudes = () => {
   const styles = useStyles();
   //Consulta state redux solicitudes
   const solicitudesMtrs = useSelector( state => state.solicitudes.solicitudesMtrs );
+  const usuario = useSelector( state => state.auth.usuario );
   //usetate para loading 
-  const [loading, setLoading] = useState(false);
+  const loading = false;
   //Variables para abrir los modales 
   const [modalEliminar, setModalEliminar]= useState(false);
   const [modalAceptar, setModalAceptar]= useState(false);
-  
+  //Funciones
+  const cargaSolicitudesMaestros = id => dispatch(obtenerSolicitudesMtrs(id));
+  const actualizarSolicitud = datos => dispatch(actualizarSolicitudesMtrs(datos));
+  const eliminarSolicitud = datos => dispatch(eliminarSolicitudesMtrs(datos));
   // const [data, setData] = useState([]);
   const [proyectoSeleccionado, setProyectoSeleccionado]= useState({
       idUsuario: "",
@@ -61,17 +68,29 @@ const Tablesolicitudes = () => {
       nombre: "",
       vacante: "",
       cuatrimestre: "",
-      estado: "",
+      estado: false,
       jorge: ""
   })
 
-  const peticionPut=()=>{
-    console.log("fgf");
-    setLoading(false);
+  const peticionPut= async ()=>{
+    proyectoSeleccionado.idUsuario = usuario.idUsuario;
+    proyectoSeleccionado.estado = !proyectoSeleccionado.estado;
+    //Actualizar
+    await actualizarSolicitud(proyectoSeleccionado);
+    await cargaSolicitudesMaestros(usuario.idUsuario);
+    setModalAceptar(false);
      //console.log(proyectoSeleccionado);
   }
-  const peticionEliminar = () => {
-    console.log(proyectoSeleccionado);
+  const peticionEliminar = async () => {
+    proyectoSeleccionado.idUsuario = usuario.idUsuario;
+    //eliminar
+    await eliminarSolicitud( {
+        idUsuario: proyectoSeleccionado.idUsuario, 
+        idProyecto: proyectoSeleccionado.idProyecto,
+        idSolicitar: proyectoSeleccionado.idSolicitar
+    });
+    await cargaSolicitudesMaestros(usuario.idUsuario);
+    setModalEliminar(false);
   }
   
   const seleccionarProyecto =(proyecto, caso)=>{
@@ -101,7 +120,7 @@ const Tablesolicitudes = () => {
                   {
                       icon: CheckCircleIcon,
                       tooltip: 'Aceptar',
-                      onClick: (event, rowData)=> seleccionarProyecto(rowData,"Aceptar")
+                      onClick: (event, rowData) => seleccionarProyecto(rowData,"Aceptar")
                   },
                   {
                       icon: HighlightOffIcon,
@@ -144,7 +163,7 @@ const Tablesolicitudes = () => {
                 <div className={styles.modal}>
                     <p>Estás seguro que deseas DENEGAR esta solicitud de <b>{proyectoSeleccionado && proyectoSeleccionado.alumno}</b>? </p>
                     <div align="right">
-                      <Button color="secondary" onClick={ ()=> peticionPut() }>Sí</Button>
+                      <Button color="secondary" onClick={ ()=> peticionEliminar() }>Sí</Button>
                       <Button onClick={() => setModalEliminar(!modalEliminar)}>No</Button>
               
                     </div>
@@ -157,11 +176,9 @@ const Tablesolicitudes = () => {
                 <div className={styles.modal}>
                   <p>Estás seguro que deseas ACEPTAR esta solicitud de <b>{proyectoSeleccionado && proyectoSeleccionado.alumno}</b>? </p>
                   <div align="right">
-                    <Button color="secondary" onClick={ () => peticionEliminar() }>Sí</Button>
+                    <Button color="secondary" onClick={ () => peticionPut() }>Sí</Button>
                     <Button onClick={() => setModalAceptar(!modalAceptar)}>No</Button>
-            
                   </div>
-            
                 </div>
           </Modal>
       </div>

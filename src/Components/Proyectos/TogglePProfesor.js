@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
-// import Tablevacantes from '../Tables/Tablevacantes';
-// <Tablevacantes />
+import { useDispatch, useSelector } from "react-redux";
+import { agregarProyectoMTRS } from "../../actions/proyectosActions";
+
 
 const TogglePProfesor = (props) => {
+  const dispatch = useDispatch();
+   //Consultando state de redux
+   const usuario = useSelector( state => state.auth.usuario );
 
   const [datos, setDatos] = useState({
-    idUsuario: "",
+    idUsuario: 0,
     nombre: "",
     descripcion: "",
     areaInvestigacion: "",
@@ -15,10 +19,23 @@ const TogglePProfesor = (props) => {
   });
   const { nombre, descripcion, areaInvestigacion, vacante, fechaInicio, fechaFinal  } = datos;
 
-  const enviarDatos = (event) => {
+  const addProyectoMtrs = (datos1) => dispatch( agregarProyectoMTRS(datos1) );
+
+  const enviarDatos = async (event) => {
     event.preventDefault();
-    console.log(datos);
+    datos.idUsuario = usuario.idUsuario;
+    //Validar que no existan campos vacios
+    if( !(Object.values(setDatos).every( (item) =>  item !== "" )) ){
+      return;
+    }
+    await addProyectoMtrs(datos);
+    //Regresar al dashboard
+    window.location.href="./dashboard";
   };
+
+  const regresar = () => {
+    window.location.href="./dashboard";
+  }
 
   const handleInputChange = (event) => {
       setDatos({
@@ -100,7 +117,7 @@ const TogglePProfesor = (props) => {
                           <button type="submit" className="btntabs btn-primary-tabs">
                               Guardar
                           </button>
-                          <button type="submit" className="btntabs btn-primary-tabs">
+                          <button type="button" onClick={regresar} className="btntabs btn-primary-tabs">
                               Cancelar
                           </button>
                         </div>

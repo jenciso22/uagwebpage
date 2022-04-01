@@ -8,10 +8,13 @@ import { obtenerUsuariosMTRS } from "../actions/usuariosActions";
 const Perfilmaestros = () => {
 
     const dispatch = useDispatch();
+    const cargaMtrs = () => dispatch(obtenerUsuariosMTRS());
 
-    useEffect( async () => {
-        const cargaMtrs = datos => dispatch(obtenerUsuariosMTRS());
-        await cargaMtrs();
+    useEffect( () => {
+        const ejecutar = async () => {
+            await cargaMtrs();
+        }
+        ejecutar();
         //eslint-disable-next-line
     }, []);
     

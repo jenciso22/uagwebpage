@@ -1,16 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from "react-redux";
+import { editarEscolarPerfil, obtenerUsuariosGlobal } from "../../../../actions/usuariosActions";
 
 
 const ToggleCuatro = (props) => {
-
+    const usuario = useSelector( state => state.usuarios.usuarioGlobal );
+    const dispatch = useDispatch();
     const [datos, setDatos] = useState({
-        nombre: "",
-        apellido: "",
-      });
+      matricula: "",
+      maestria: "",
+      cuatrimestre: "",
+      areasInvestigacion: "",
+      nombreProyecto: "",
+      asesorProyecto: "",
+      descripcionProyecto: ""
+    });
+
+    useEffect(() => {
+      if( usuario.result ){
+        setDatos(usuario.result[0]);
+      }
+      //eslint-disable-next-line
+    }, [usuario]);
     
-      const enviarDatos = (event) => {
-        event.preventDefault();
-        console.log("enviando datos..." + datos.nombre + " " + datos.apellido);
+    const editarEscolar = (id, datos) => dispatch(editarEscolarPerfil(id, datos));
+    const usuarioGlobal = id => dispatch(obtenerUsuariosGlobal(id));
+
+    const enviarDatos = async (event) => {
+      event.preventDefault();
+      //Validar que campos nombre, apellido, correo, No esten vacios
+      if( datos.correo.trim() === "" ){
+          console.log("LLena los campos indicados");
+          return;
+      }
+
+      await editarEscolar(datos.idUsuario, datos);
+      await usuarioGlobal(datos.idUsuario);
     };
     
     const handleInputChange = (event) => {
@@ -37,7 +62,8 @@ const ToggleCuatro = (props) => {
                             placeholder="Nombre Proyecto"
                             className="form-control-normal"
                             onChange={handleInputChange}
-                            name="nombreproyecto"
+                            value={datos.nombreProyecto}
+                            name="nombreProyecto"
                         />
                         </div>
                         <div className="col-md-3">
@@ -46,62 +72,25 @@ const ToggleCuatro = (props) => {
                             placeholder="Asesor Proyecto"
                             className="form-control-normal"
                             onChange={handleInputChange}
-                            name="asesorproyecto"
+                            name="asesorProyecto"
+                            value={datos.asesorProyecto}
                         />
                         </div>
                         <div className="col-md-3">
-                        <textarea className="textarea" name="descripcion" rows="10" cols="50">Descripción Proyecto</textarea>
-                          {/*<input
-                              type="text"
-                              placeholder="Descripcion Proyecto"
-                              className="form-control-medium"
-                              onChange={handleInputChange}
-                              name="descripcionproyecto"
-                          />*/}
+                        <textarea 
+                          className="textarea" 
+                          placeholder='Descripción Proyecto'
+                          name="descripcionProyecto" 
+                          onChange={handleInputChange}
+                          value={datos.descripcionProyecto}
+                          rows="10" 
+                          cols="50">
+                            
+                          </textarea>
                         </div>
-
-
-                          {/*}
-                        <div className="col-md-3">
-                        <label className="active-label">Activo</label>
-                        <input
-                            type="checkbox"
-                            placeholder="Activo"
-                            className="form-control-checkbox"
-                            onChange={handleInputChange}
-                            name="activoCheckbox"
-                        />
-                        </div>
-                        <div className="col-md-3">
-                          <label className="inactive-label"> Inactivo</label>
-                          <input
-                              type="checkbox"
-                              placeholder="Inactivo"
-                              className="form-control-checkbox"
-                              onChange={handleInputChange}
-                              name="inactivoCheckbox"
-                          />
-                        </div>*/}
-
-                        <fieldset>
-                            <legend>Estado Proyecto</legend>
-                            <div className="estado-proyecto">
-                              <label>
-                                  <input type="radio" name="estado" value="activo"/> Activo
-                              </label>
-                              <label>
-                                  <input type="radio" name="estado" value="inactivo"/> Inactivo
-                              </label>
-                            </div>
-                        </fieldset>
-
-
                         <div className="btn-group">
                             <button type="submit" className="btntabs btn-primary-tabs">
-                            Guardar
-                            </button>
-                            <button type="submit" className="btntabs btn-primary-tabs">
-                            Editar
+                              Guardar
                             </button>
                         </div>
                     </form>

@@ -1,27 +1,22 @@
 import React, {useState, useEffect} from 'react';
 import MaterialTable from '@material-table/core';
-import axios from 'axios';
 import SendIcon from '@material-ui/icons/Send';
 import { Modal, Button} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 import './Tablemisproyectos.css';
 import { red } from '@material-ui/core/colors';
 import ClipLoader from "react-spinners/ClipLoader";
-
+import { useDispatch ,useSelector } from "react-redux";
+import { solicitarSolicitudesAlum } from "../../actions/solicitudesActions";
 
 const columns=[
-    {title: 'Nombre de Proyecto', field: 'nombre_proyecto'},
+    {title: 'Nombre de Proyecto', field: 'nombre'},
     {title:'Descripcion', field: 'descripcion'},
-    {title:'Area de Investigacion', field: 'area'},
-    {title: 'Asesor', field: 'asesor'},
+    {title:'Area de Investigacion', field: 'areaInvestigacion'},
+    {title: 'Asesor', field: 'usuario'},
     {title: 'Vacante', field: 'vacante'},
-    {title: 'Fecha de Entrega', field: 'fecha_entrega'},
+    {title: 'Fecha de Entrega', field: 'fechaFinal'},
 ];
-
-
-
-const baseUrl="http://localhost:3001/proyectos";
-// const baseUrl="http://jsonplaceholder.typicode.com/users";
 
 const useStyles = makeStyles((theme)=>({
 
@@ -66,71 +61,45 @@ const useStyles = makeStyles((theme)=>({
     }));
 
 
-function TableproyectosgeneralesA () {
+const TableproyectosgeneralesA = () =>  {
+  //Consultando state de redux
+  const usuario = useSelector( state => state.auth.usuario );
+  const proyectos = useSelector( state => state.proyectos.proyectosG );
+
     const styles = useStyles();
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [modalEliminar, setModalEliminar]= useState(false);
+    const loading = false;
     const [modalSolicitar, setModalSolicitar]= useState(false);
     const [proyectoSeleccionado, setProyectoSeleccionado]= useState({
-        id: "",
-        name: "",
-        descripcion: "",
-        area: "",
-        vacante: "",
-        fecha_entrega: ""
+        idProyecto: 0,
+        idUsuario: 0,
+        descripcion: ""
     })
+
+    const dispatch = useDispatch();
+    const solicitarProyecto = datos => dispatch(solicitarSolicitudesAlum(datos));
+
   
 
-    //     const handleChange=e=>{
-    //     const{name, value}=e.target;
-    //     setProyectoSeleccionado(prevState=>({
-    //         ...prevState,
-    //         [name]: value
-    //     }));
-    //     console.log(proyectoSeleccionado);
-    // };
-
-    const peticionGet = async()=>{
-        await axios.get(baseUrl)
-        .then(response=>{
-            setLoading(false);
-            setData(response.data);
-        }).catch(error=>{
-            setLoading(false);
-            console.log(error);
-          })
+    const peticionPost=async()=>{
+      proyectoSeleccionado.idUsuario = usuario.idUsuario;
+      proyectoSeleccionado.descripcion = "Usuario solicita unirse a este proyecto";
+      await solicitarProyecto(proyectoSeleccionado);
+      abrirCerrarModalSolicitar();
     }
 
-    const peticionPost=async()=>{
-        await axios.post(baseUrl, proyectoSeleccionado)
-        .then(response=>{
-          setData(data.concat(response.data));
-        abrirCerrarModalSolicitar();
-        }).catch(error=>{
-          console.log(error);
-        })
-      }
 
-
-          const seleccionarProyecto =(proyecto, caso)=>{
+      const seleccionarProyecto =(proyecto, caso)=>{
         setProyectoSeleccionado(proyecto);
-        (caso==="Solicitar")?abrirCerrarModalSolicitar()
-        :
-        abrirCerrarModalEliminar()
+        abrirCerrarModalSolicitar()
       }
-        const abrirCerrarModalEliminar=()=>{
-            setModalEliminar(!modalEliminar);
-          }
-
-        const abrirCerrarModalSolicitar=()=>{
+      const abrirCerrarModalSolicitar=()=>{
             setModalSolicitar(!modalSolicitar);
-          }
+      }
 
-        useEffect(() => {
-            peticionGet();
+      useEffect(() => {
+      
             //eslint-disable-next-line
-        }, []);
+      }, []);
 
 
 
@@ -160,7 +129,7 @@ function TableproyectosgeneralesA () {
             <br />
             <MaterialTable
                 columns={columns}
-                data={data}
+                data={proyectos.result}
                 title= 'Proyectos Generales'
 
                  actions={[
@@ -200,10 +169,10 @@ function TableproyectosgeneralesA () {
 
             />
 
-                <Modal
-            open={modalSolicitar}
-            onClose={abrirCerrarModalSolicitar}>
-            {bodySolicitar}
+            <Modal
+              open={modalSolicitar}
+              onClose={abrirCerrarModalSolicitar}>
+              {bodySolicitar}
             </Modal>
 
         </div>

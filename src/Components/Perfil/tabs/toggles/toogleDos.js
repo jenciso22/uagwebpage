@@ -1,21 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from "react-redux";
+import { editarEscolarPerfil, obtenerUsuariosGlobal } from "../../../../actions/usuariosActions";
 
 
 const ToggleDos = (props) => {
-
+  const usuario = useSelector( state => state.usuarios.usuarioGlobal );
+  const dispatch = useDispatch();
   const [datos, setDatos] = useState({
-    nombre: "",
-    apellido: "",
+    matricula: "",
+    maestria: "",
+    cuatrimestre: "",
+    areasInvestigacion: "",
+    nombreProyecto: "",
+    asesorProyecto: "",
+    descripcionProyecto: ""
   });
 
-  const enviarDatos = (event) => {
+  useEffect(() => {
+    if(usuario.result){
+      setDatos(usuario.result[0]);
+    }
+    //eslint-disable-next-line
+  }, [usuario]);
+
+  const editarEscolar = (id, datos) => dispatch(editarEscolarPerfil(id, datos));
+  const usuarioGlobal = id => dispatch(obtenerUsuariosGlobal(id));
+
+  const enviarDatos = async (event) => {
     event.preventDefault();
-    console.log("enviando datos..." + datos.nombre + " " + datos.apellido);
+    //No se revisan valores ya quie puede ir sin informacion
+    await editarEscolar(datos.idEscolar, datos);
+    await usuarioGlobal(datos.idUsuario);
   };
 
   const handleInputChange = (event) => {
-      // console.log(event.target.name)
-      // console.log(event.target.value)
       setDatos({
         ...datos,
         [event.target.name]: event.target.value,
@@ -34,11 +52,12 @@ const ToggleDos = (props) => {
               <form className="row-tabs" onSubmit={enviarDatos}>
                 <div className="col-md-3">
                   <input
-                    type="number"
-                    placeholder="ID"
+                    type="text"
+                    placeholder="Matricula"
                     className="form-control-short"
                     onChange={handleInputChange}
-                    name="id"
+                    value={datos.matricula}
+                    name="matricula"
                   />
                 </div>
                 <div className="col-md-3">
@@ -47,6 +66,7 @@ const ToggleDos = (props) => {
                     placeholder="Maestria"
                     className="form-control-normal"
                     onChange={handleInputChange}
+                    value={datos.maestria}
                     name="maestria"
                   />
                 </div>
@@ -56,15 +76,13 @@ const ToggleDos = (props) => {
                     placeholder="Cuatrimestre"
                     className="form-control-normal"
                     onChange={handleInputChange}
+                    value={datos.cuatrimestre}
                     name="cuatrimestre"
                   />
                 </div>
                 <div className="btn-group">
                   <button type="submit" className="btntabs btn-primary-tabs">
                     Guardar
-                  </button>
-                  <button type="submit" className="btntabs btn-primary-tabs">
-                    Editar
                   </button>
                 </div>
               </form>

@@ -2,8 +2,10 @@
 import "./Tabs.css";
 import Avatar from "../../assets/avatar.png";
 import ContainerTabsProfesores from "./tabs/containerTabsProfesores";
+import { useSelector } from "react-redux";
 
 const TabsProfesor = () => {
+  const usuario = useSelector( state => state.usuarios.usuarioGlobal );
   return ( 
       <>
         <div className="containernew">
@@ -13,7 +15,7 @@ const TabsProfesor = () => {
               </div>
 
               <div className="user-name1">
-                <p>Jose William Enciso Guzman</p>
+                <p>{ usuario.result ? usuario.result[0].nombre + " " + usuario.result[0].apellido : "Administrador"}</p> 
               </div>
           </div>
 

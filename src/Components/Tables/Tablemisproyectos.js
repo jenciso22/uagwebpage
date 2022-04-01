@@ -6,7 +6,8 @@ import './Tablemisproyectos.css';
 import { red } from '@material-ui/core/colors';
 import ClipLoader from "react-spinners/ClipLoader";
 import { useDispatch, useSelector } from "react-redux";
-import { actualizarProyectoMTRS  } from '../../actions/proyectosActions';
+import { actualizarProyectoMTRS, obtenerProyectosMTRS, eliminarProyectoMTRS } from '../../actions/proyectosActions';
+
 
 const useStyles = makeStyles((theme)=>({
     modal:{
@@ -72,8 +73,7 @@ const Tablemisproyectos = () => {
         nombre: "",
         descripcion: "",
         areaInvestigacion: "",
-        vacante: "",
-        fechaFinal: ""
+        vacante: ""
       });
 
       const { nombre, descripcion, areaInvestigacion, vacante, fechaFinal } = proyectoSeleccionado;
@@ -94,28 +94,35 @@ const Tablemisproyectos = () => {
             [name]: value
           });
       };
+
+      const cargaProyectosMtrs = () => dispatch(obtenerProyectosMTRS());
       
       const peticionPut= async ()=>{
-        console.log("Hola put");
         //Tener datos modificados
-        if( !Object.values(proyectoSeleccionado).every( item => item != "") ){
+        if( !Object.values(proyectoSeleccionado).every( item => item !== "") ){
           console.log("Tienes que llenar todos los campos");
           return;
         }
-
+        proyectoSeleccionado.fechaFinal = "2022-03-29";
+        proyectoSeleccionado.fechaInicio = "2022-04-28";
         //Consultar api
-        const cargaProyectosMtrs = (datos) => dispatch(actualizarProyectoMTRS(datos));
-        await cargaProyectosMtrs(proyectoSeleccionado);
+        const actualizarProyectoMtrs = (datos) => dispatch(actualizarProyectoMTRS(datos));
+        await actualizarProyectoMtrs(proyectoSeleccionado);
+        //Cagar info table de nuevo
+        await cargaProyectosMtrs();
         // //Refrescar tabla
         setModalEditar(false);
       }
       
-      const peticionDelete=async()=>{
+      const peticionDelete = async () => {
           //Verificar que tengamos los datos para eliminar
           //Realizar consulta a base de datos o back
+          const eliminarProyectoMtrs = (id , idUsuario) => dispatch(eliminarProyectoMTRS( id, idUsuario ));
+          eliminarProyectoMtrs(proyectoSeleccionado.idProyecto, proyectoSeleccionado.idUsuario);
           //Refrescar tabla 
-          //Enviar datos al action para eliminar esto
-          console.log(proyectoSeleccionado);
+          await cargaProyectosMtrs();
+          //Cerrar modal
+          setModalEliminar(false);
       }
         
       
@@ -123,7 +130,8 @@ const Tablemisproyectos = () => {
           setProyectoSeleccionado(proyecto);
           (caso==="Editar") ? setModalEditar(!modalEditar) : setModalEliminar(!modalEliminar);
       }
-      
+
+
       return (
       
         <>
@@ -134,8 +142,8 @@ const Tablemisproyectos = () => {
               <ClipLoader color={red}  loading={loading} size={40} />
             </div>
           : 
-              <div>            
-                <div className='tableMisProyectos'>
+              <div>          
+                <div className='tableMisProyectos'> 
                   <br />
                   <div className='container-insertar'>
                   <button className='btn-insertar' onClick={ () => openInNewTab('http://localhost:3000/proyectop') }>Insertar Proyecto</button> 
@@ -162,7 +170,7 @@ const Tablemisproyectos = () => {
           
                       ]}
                       options={{
-                          actionsColumnIndex: -1,
+                        actionsColumnIndex: -1,
                           rowStyle:{
                               backgroundColor: '#EEE'
                           },

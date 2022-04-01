@@ -1,46 +1,30 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import MaterialTable from '@material-table/core';
-import axios from 'axios';
 import '../Tablemisproyectos.css';
+import { useSelector } from "react-redux";
 
 
 const columns=[
-    {title: 'Alumno', field: 'alumno'},
-    {title:'Nombre del Proyecto', field: 'nombre_proyecto'},
-    {title:'Vacante Solicitada', field: 'vacante_solicitada'},
-    {title: 'Cuatrimestre', field: 'cuatrimestre'},
-    {title: 'Estatus', field: 'estatusOne'}
+    {title: 'Nombre del Proyecto', field: 'nombre'},
+    {title:'Descripcion', field: 'descripcion'},
+    {title:'Vacante Solicitada', field: 'vacante'},
+    {title: 'Area de Investigacion', field: 'areaInvestigacion'},
+    {title: 'Estatus', field: 'estado'}
 ];
 
-
-const baseUrl="http://localhost:3001/solicitudes";
-
-
-function MisolicitudDashboard () {
-
-    const [data, setData] = useState([]);
-
-    const peticionGet = async()=>{
-        await axios.get(baseUrl)
-        .then(response=>{
-            setData(response.data);
-        }).catch(error=>{
-            console.log(error);
-          })
-    }
-
-        useEffect(() => {
-            peticionGet();
-            //eslint-disable-next-line
-        }, []);
-
+const MisolicitudDashboard = () => {
+    const solicitudesAlum = useSelector( state => state.solicitudes.solicitudesAlum );
+        // useEffect(() => {
+        //     peticionGet();
+        //     //eslint-disable-next-line
+        // }, [])
 
     return (
         <div className='tableSolicitudes'>
 
             <MaterialTable
                 columns={columns}
-                data={data}
+                data={solicitudesAlum.result}
                 title= 'Mis Solicitudes'
 
                 options={{
@@ -72,6 +56,5 @@ function MisolicitudDashboard () {
         </div>
     )
 }
-
+ 
 export default MisolicitudDashboard;
-

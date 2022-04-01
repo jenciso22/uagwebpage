@@ -4,8 +4,8 @@ import ToggleDosP from '../togglesProfesor/toggleDosP';
 import ToggleTresP from '../togglesProfesor/toggleTresP';
 import ToggleCuatroP from '../togglesProfesor/toggleCuatroP';
 
-
 const PestanaPerfilProf = ( props ) => {
+
     return ( 
         <div className="content-tabs">
             <ToggleUnoP toggleState={props.toggleState}/>

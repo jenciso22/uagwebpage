@@ -1,47 +1,30 @@
-import React, {useState, useEffect} from 'react';
+import React, { useEffect, useState } from 'react';
 import MaterialTable from '@material-table/core';
-import axios from 'axios';
-// import { Modal, Button, TextField,} from '@material-ui/core';
-// import { makeStyles } from '@material-ui/core';
 import '../Tablemisproyectos.css';
-
+import { useSelector } from "react-redux";
 
 const columns=[
-    {title: 'Nombre de Proyecto', field: 'nombre_proyecto'},
+    {title: 'Nombre de Proyecto', field: 'nombre'},
     {title:'Descripcion', field: 'descripcion'},
-    {title:'Area de Investigacion', field: 'area'},
+    {title:'Area de Investigacion', field: 'areaInvestigacion'},
     {title: 'Vacante', field: 'vacante'},
-    {title: 'Fecha de Entrega', field: 'fecha_entrega'}
+    {title: 'Fecha de Entrega', field: 'fechaFinal'}
 ];
 
 
+const MiproyectoDashboard =  ()  => {
 
-const baseUrl="http://localhost:3001/proyectos";
-
-
-
-function MiproyectoDashboard () {
-
-    const [data, setData] = useState([]);
-
-    const peticionGet = async()=>{
-        await axios.get(baseUrl)
-        .then(response=>{
-            setData(response.data);
-        }).catch(error=>{
-            console.log(error);
-          })
-    }
-
-
-
-    useEffect(() => {
-            peticionGet();
-            //eslint-disable-next-line
-    }, []);
-
-
+    const solicitudesAlum = useSelector( state => state.solicitudes.solicitudesAlum );
+    const [datos, setDatos] = useState([]);
     
+    useEffect(() => {
+      if( solicitudesAlum.result  ){
+            let info = solicitudesAlum.result.filter( item => item.estado === true);
+            setDatos(info);
+      }
+    }, [solicitudesAlum])
+    
+
 
     return (
         <div className='tableMisProyectos'>
@@ -49,7 +32,7 @@ function MiproyectoDashboard () {
             
             <MaterialTable
                 columns={columns}
-                data={data}
+                data={datos}
                 title= 'Mi Proyecto'
 
                 options={{

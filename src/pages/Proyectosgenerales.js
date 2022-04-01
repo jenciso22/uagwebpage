@@ -9,10 +9,13 @@ import { obtenerProyectosGenerales  } from '../actions/proyectosActions.js';
 const Proyectosgenerales = () => {
 
     const dispatch = useDispatch();
+    const cargaProyectos = datos => dispatch(obtenerProyectosGenerales());
 
-    useEffect(async () => {
-        const cargaProyectos = datos => dispatch(obtenerProyectosGenerales());
-        await cargaProyectos();
+    useEffect(() => {
+        const ejecutar = async () => {
+            await cargaProyectos();
+        }
+        ejecutar();
         //eslint-disable-next-line
     }, []);
 
