@@ -4,6 +4,11 @@
     padding: 0;
 } 
 
+
+.row-tabs .btn-group{
+  margin: 0px auto;
+}
+
 /*Contenedor que contiene los botones y los paneles de edicion*/
 .container {
   flex-basis: 70%;

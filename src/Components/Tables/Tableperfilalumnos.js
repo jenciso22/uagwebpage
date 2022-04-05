@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState} from 'react';
 import MaterialTable from '@material-table/core';
 import { useSelector } from "react-redux";
 import './Tablemisproyectos.css';
@@ -8,14 +8,28 @@ import ClipLoader from "react-spinners/ClipLoader";
 const Tableperfilalumnos = () => {
     const loading = false;
     const alumnos = useSelector( state => state.usuarios.alumnos );
+    const [datos, setDatos] = useState([]);
     const columns=[
-        {title: 'Alumno', field: 'nombre'},
+        {title: 'Alumno', field: 'usuario'},
         {title:'Telefono', field: 'telefono'},
         {title:'Correo', field: 'correo'},
-        {title: 'Tipo usuario', field: 'tipoUsuario'},
+        {title: 'Linkeidn', field: 'linkeidn'},
         {title: 'Acerca De Mi', field: 'acercaDeMi'}
     ];
+
+    useEffect(() => {
+        if( alumnos.result ){
+            const info = alumnos.result.map( item => {
+                item.usuario = item.nombre + " " + item.apellido;
+                return item;
+            });
+            console.log(alumnos.result);
+            setDatos(info);
+        }
+    }, [alumnos])
     
+
+
     return (
         <>
         {loading?
@@ -30,7 +44,7 @@ const Tableperfilalumnos = () => {
         
             <MaterialTable
                 columns={columns}
-                data={alumnos.result}
+                data={datos}
                 title= 'Perfiles Alumnos'
     
                 options={{

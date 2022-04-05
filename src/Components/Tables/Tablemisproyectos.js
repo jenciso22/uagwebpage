@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core';
 import './Tablemisproyectos.css';
 import { red } from '@material-ui/core/colors';
 import ClipLoader from "react-spinners/ClipLoader";
+import Cookies from 'universal-cookie';
 import { useDispatch, useSelector } from "react-redux";
 import { actualizarProyectoMTRS, obtenerProyectosMTRS, eliminarProyectoMTRS } from '../../actions/proyectosActions';
 
@@ -52,6 +53,7 @@ const useStyles = makeStyles((theme)=>({
 
 const Tablemisproyectos = () => {
       const dispatch = useDispatch();
+      const cookies = new Cookies();
       //Datos para llenar la tabla
       const columns=[
         {title: 'Nombre de Proyecto', field: 'nombre'},
@@ -95,7 +97,7 @@ const Tablemisproyectos = () => {
           });
       };
 
-      const cargaProyectosMtrs = () => dispatch(obtenerProyectosMTRS());
+      const cargaProyectosMtrs = id => dispatch(obtenerProyectosMTRS(id));
       
       const peticionPut= async ()=>{
         //Tener datos modificados
@@ -109,7 +111,7 @@ const Tablemisproyectos = () => {
         const actualizarProyectoMtrs = (datos) => dispatch(actualizarProyectoMTRS(datos));
         await actualizarProyectoMtrs(proyectoSeleccionado);
         //Cagar info table de nuevo
-        await cargaProyectosMtrs();
+        await cargaProyectosMtrs(cookies.get("idUsuario"));
         // //Refrescar tabla
         setModalEditar(false);
       }
@@ -120,7 +122,7 @@ const Tablemisproyectos = () => {
           const eliminarProyectoMtrs = (id , idUsuario) => dispatch(eliminarProyectoMTRS( id, idUsuario ));
           eliminarProyectoMtrs(proyectoSeleccionado.idProyecto, proyectoSeleccionado.idUsuario);
           //Refrescar tabla 
-          await cargaProyectosMtrs();
+          await cargaProyectosMtrs(cookies.get("idUsuario"));
           //Cerrar modal
           setModalEliminar(false);
       }

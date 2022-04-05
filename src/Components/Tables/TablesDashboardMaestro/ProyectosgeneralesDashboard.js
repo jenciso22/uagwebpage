@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import MaterialTable from '@material-table/core';
 import { useSelector } from "react-redux";
 import '../Tablemisproyectos.css';
 
 const columns=[
-    {title: 'Nombre de Proyecto', field: 'nombre'},
+    {title: 'Nombre de Proyecto', field: 'nombre' },
     {title:'Descripcion', field: 'descripcion'},
     {title:'Area de Investigacion', field: 'areaInvestigacion'},
     {title: 'Asesor', field: 'usuario'},
@@ -13,14 +13,25 @@ const columns=[
 ];
 
 const ProyectosgeneralesDashboard = () => {
-
+    const [datos, setDatos] = useState([]);
     const proyectosG = useSelector( state => state.proyectos.proyectosG );
+
+    useEffect(() => {
+        if( proyectosG.result ){
+            const info = proyectosG.result.map( item => {
+                item.usuario = item.usuario + " " + item.apellido;
+                return item;
+            });
+            setDatos(info);
+        }
+    }, [proyectosG])
+    
 
     return ( 
         <div className='tableProyectosGenerales'>
             <MaterialTable
                 columns={columns}
-                data={proyectosG.result}
+                data={datos}
                 title= 'Proyectos Generales'
 
                 options={{
