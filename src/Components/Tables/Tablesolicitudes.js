@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React, {useState} from 'react';
 import MaterialTable from '@material-table/core';
 import { useDispatch, useSelector } from "react-redux";
 import { Modal, Button } from '@material-ui/core';
@@ -47,6 +47,8 @@ const Tablesolicitudes = () => {
     {title: 'Cuatrimestre', field: 'cuatrimestre'},
     {title: 'Estatus', field: 'estado'}
   ];
+
+
   //Variable estilos
   const styles = useStyles();
   //Consulta state redux solicitudes
@@ -161,7 +163,7 @@ const Tablesolicitudes = () => {
             open={modalEliminar}
             onClose={() => setModalEliminar(!modalEliminar)}>
                 <div className={styles.modal}>
-                    <p>Estás seguro que deseas DENEGAR esta solicitud de <b>{proyectoSeleccionado && proyectoSeleccionado.alumno}</b>? </p>
+                    <p>Estás seguro que deseas DENEGAR esta solicitud de <b>{proyectoSeleccionado && proyectoSeleccionado.usuario}</b>? </p>
                     <div align="right">
                       <Button color="secondary" onClick={ ()=> peticionEliminar() }>Sí</Button>
                       <Button onClick={() => setModalEliminar(!modalEliminar)}>No</Button>
@@ -174,7 +176,7 @@ const Tablesolicitudes = () => {
               open={modalAceptar}
               onClose={() => setModalAceptar(!modalAceptar)}>
                 <div className={styles.modal}>
-                  <p>Estás seguro que deseas ACEPTAR esta solicitud de <b>{proyectoSeleccionado && proyectoSeleccionado.alumno}</b>? </p>
+                  <p>Estás seguro que deseas ACEPTAR esta solicitud de <b>{proyectoSeleccionado && proyectoSeleccionado.usuario}</b>? </p>
                   <div align="right">
                     <Button color="secondary" onClick={ () => peticionPut() }>Sí</Button>
                     <Button onClick={() => setModalAceptar(!modalAceptar)}>No</Button>

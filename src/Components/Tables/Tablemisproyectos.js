@@ -256,7 +256,7 @@ const Tablemisproyectos = () => {
                     onClose={() => setModalEliminar(!modalEliminar)}>
                        <div className={styles.modalCancelar}>
                           <p>
-                            Estás seguro que deseas eliminar el proyecto  
+                            Estás seguro que deseas eliminar el proyecto <b>{proyectoSeleccionado && proyectoSeleccionado.nombre}</b> ?
                           </p>
                           <div align="right">
                             <Button color="secondary" onClick={()=>peticionDelete()}>Sí</Button>

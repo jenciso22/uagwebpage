@@ -11,12 +11,15 @@ const TableperfilmaestrosA = () => {
     const UsuariosMtrs = useSelector( state => state.usuarios.maestros );
     //Estructura tabla
     const columns=[
-        {title: 'Profesor', field: 'nombre'},
+        {title: 'Nombre', field: 'nombre'},
         {title:'Apellido', field: 'apellido'},
         {title: 'Telefono', field: 'telefono'},
         {title:'Correo', field: 'correo'},
         {title: 'Linkedin', field: 'linkeidn'}
     ];
+
+
+    
     //State loading para cargar la tabla
     const loading = false;
 
