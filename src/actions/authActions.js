@@ -21,13 +21,15 @@ export function iniciarSesionAuth(datos){
             dispatch( comenzarInicioSesionSuccess(respuesta.data) );
             cookies.set('token', respuesta.data.token, {path: "/"});
             cookies.set('idUsuario', respuesta.data.idUsuario, {path: "/"});
-            Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'Bienvenido',
-                showConfirmButton: false,
-                timer: 1500
-            });
+            setTimeout(() => {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Bienvenido',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }, 300);
             respuesta.data.tipoUsuario === "ALUM" ? window.location.href = "./dashboard-alumno" : window.location.href="./dashboard";
         } catch (error) {
             //console.log(error);
