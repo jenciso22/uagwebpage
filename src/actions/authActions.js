@@ -31,6 +31,13 @@ export function iniciarSesionAuth(datos){
             respuesta.data.tipoUsuario === "ALUM" ? window.location.href = "./dashboard-alumno" : window.location.href="./dashboard";
         } catch (error) {
             //console.log(error);
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'Los datos ingresados son incorrectos',
+                showConfirmButton: false,
+                timer: 1500
+            });
             dispatch( comenzarInicioSesionError() );
         }
     }

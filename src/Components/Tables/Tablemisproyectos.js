@@ -206,7 +206,7 @@ const Tablemisproyectos = () => {
                               <TextField 
                                 className={styles.inputMaterial} 
                                 label="Nombre Proyecto" 
-                                name="proyecto" 
+                                name="nombre" 
                                 onChange={handleChange} 
                                 value={nombre}
                               />
