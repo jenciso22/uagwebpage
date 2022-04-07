@@ -108,7 +108,7 @@ const TableproyectosgeneralesA = () =>  {
 
       const bodySolicitar=(
         <div className={styles.modalSolicitar}>
-          <p>Estás seguro que desea enviar una solicitud al proyecto <b>"{proyectoSeleccionado && proyectoSeleccionado.nombre_proyecto}"</b>? </p>
+          <p>Estás seguro que desea enviar una solicitud al proyecto <b>"{proyectoSeleccionado && proyectoSeleccionado.nombre}"</b>? </p>
           <div align="right">
             <Button color="secondary" onClick={()=>peticionPost()}>Sí</Button>
             <Button onClick={()=>abrirCerrarModalSolicitar()}>No</Button>
