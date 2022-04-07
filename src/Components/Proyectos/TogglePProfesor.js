@@ -82,6 +82,7 @@ const TogglePProfesor = (props) => {
                         <div className="col-md-3">
                           <textarea 
                             className="textareap"
+                            placeholder="Vacante"
                             onChange={handleInputChange}
                             name="vacante" 
                             value={vacante}

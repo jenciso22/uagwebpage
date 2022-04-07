@@ -13,7 +13,8 @@ const columns=[
     {title: 'Nombre de Proyecto', field: 'nombre'},
     {title:'Descripcion', field: 'descripcion'},
     {title:'Area de Investigacion', field: 'areaInvestigacion'},
-    {title: 'Asesor', field: 'usuario'},
+    {title: 'Nombre Asesor', field: 'usuario'},
+    {title: 'Apellido Asesor', field: 'apellido'},
     {title: 'Vacante', field: 'vacante'},
     {title: 'Fecha de Entrega', field: 'fechaFinal'},
 ];
@@ -62,6 +63,8 @@ const useStyles = makeStyles((theme)=>({
 
 
 const TableproyectosgeneralesA = () =>  {
+
+
   //Consultando state de redux
   const usuario = useSelector( state => state.auth.usuario );
   const proyectos = useSelector( state => state.proyectos.proyectosG );
