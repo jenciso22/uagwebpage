@@ -4,6 +4,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## First Steps
 
+First steps to RUN the project - UAG WEB PAGE FRONT END.
+
 ### `git clone https://github.com/jenciso22/uagwebpage.git`
 
   - Clone the repository to your local machine.
