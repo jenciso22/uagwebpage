@@ -2,6 +2,21 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## First Steps
+
+### `git clone https://github.com/jenciso22/uagwebpage.git`
+
+  - Clone the repository to your local machine.
+
+### `npm i`
+
+  - Install dependecies.
+
+### `Redux Devtool`
+
+   - Install Redux DevTools on your browser.
+
+
 ## Available Scripts
 
 In the project directory, you can run:
